@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://c06d84vcf16pb"]
+
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="1_ekv0r"]
+[ext_resource type="Script" path="res://Scripts/Window/window.gd" id="1_rs2rs"]
+
+[node name="Base" type="Node2D"]
+script = ExtResource("1_rs2rs")
+
+[node name="Uibar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -5.0
+offset_right = 50.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Draggable_Bar" type="Sprite2D" parent="Uibar"]
+self_modulate = Color(1, 1, 0.505882, 1)
+position = Vector2(50, 5)
+scale = Vector2(10, 1)
+texture = ExtResource("1_ekv0r")
+
+[node name="Minimize" type="TextureButton" parent="Uibar"]
+self_modulate = Color(0.511562, 1, 0.776173, 1)
+layout_mode = 0
+offset_left = 80.0
+offset_right = 90.0
+offset_bottom = 10.0
+texture_normal = ExtResource("1_ekv0r")
+texture_pressed = ExtResource("1_ekv0r")
+texture_hover = ExtResource("1_ekv0r")
+texture_disabled = ExtResource("1_ekv0r")
+texture_focused = ExtResource("1_ekv0r")
+
+[node name="Delete" type="TextureButton" parent="Uibar"]
+self_modulate = Color(1, 0.517647, 1, 1)
+layout_mode = 0
+offset_left = 90.0
+offset_right = 100.0
+offset_bottom = 10.0
+texture_normal = ExtResource("1_ekv0r")
+texture_pressed = ExtResource("1_ekv0r")
+texture_hover = ExtResource("1_ekv0r")
+texture_disabled = ExtResource("1_ekv0r")
+texture_focused = ExtResource("1_ekv0r")
+
+[connection signal="mouse_entered" from="Uibar" to="." method="_mouse_enter_hitbox"]
+[connection signal="mouse_exited" from="Uibar" to="." method="_mouse_exit_hitbox"]
+[connection signal="pressed" from="Uibar/Minimize" to="." method="_on_minimize_pressed"]
+[connection signal="pressed" from="Uibar/Delete" to="." method="_on_delete_pressed"]

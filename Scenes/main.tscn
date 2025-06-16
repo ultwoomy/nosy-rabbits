@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjym8bos6s3mo"]
+
+[ext_resource type="PackedScene" uid="uid://bhoqejbom2jg8" path="res://Scenes/rabbit.tscn" id="1_rlf78"]
+[ext_resource type="Script" path="res://Scripts/Window/window_manager.gd" id="2_y45lw"]
+[ext_resource type="PackedScene" uid="uid://c06d84vcf16pb" path="res://Scenes/Window_Scenes/base.tscn" id="3_5jdpr"]
+[ext_resource type="PackedScene" uid="uid://dvvhywkx6vbx1" path="res://Scenes/desktop_bar.tscn" id="4_ad3v8"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Rabbit" parent="." instance=ExtResource("1_rlf78")]
+position = Vector2(156, 75)
+scale = Vector2(0.3, 0.3)
+interval = 2.0
+speed = 0.3
+
+[node name="Window_Manager" type="Node" parent="." node_paths=PackedStringArray("desktop_bar")]
+script = ExtResource("2_y45lw")
+desktop_bar = NodePath("../DesktopBar")
+
+[node name="Base" parent="Window_Manager" instance=ExtResource("3_5jdpr")]
+size = Vector2(100, 100)
+
+[node name="DesktopBar" parent="." node_paths=PackedStringArray("window_manager") instance=ExtResource("4_ad3v8")]
+window_manager = NodePath("../Window_Manager")

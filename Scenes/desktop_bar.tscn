@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvvhywkx6vbx1"]
+
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="1_ctfba"]
+[ext_resource type="Script" path="res://Scripts/desktop_bar.gd" id="1_d2g1g"]
+
+[node name="DesktopBar" type="Node2D"]
+script = ExtResource("1_d2g1g")
+
+[node name="Bar" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(158, 153)
+scale = Vector2(32.6, 2)
+texture = ExtResource("1_ctfba")

@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhoqejbom2jg8"]
+
+[ext_resource type="Script" path="res://Scripts/Rabbit/rabbit.gd" id="1_2vsx6"]
+[ext_resource type="Script" path="res://Scripts/States/state_manager.gd" id="2_kqvl5"]
+[ext_resource type="Texture2D" uid="uid://b14xt22mwytxw" path="res://Sprites/arrow.png" id="2_nlpxf"]
+[ext_resource type="Script" path="res://Scripts/States/horizontal_movement_state.gd" id="4_kkgei"]
+[ext_resource type="Script" path="res://Scripts/States/idle_state.gd" id="5_1iqw1"]
+[ext_resource type="Script" path="res://Scripts/States/vertical_movement_state.gd" id="6_gonfp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6cstm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nlpxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nlpxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nlpxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nlpxf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Rabbit" type="Node2D"]
+script = ExtResource("1_2vsx6")
+
+[node name="Rabbit_Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6cstm")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="State_Manager" type="Node" parent="." node_paths=PackedStringArray("init_state", "rabbit")]
+script = ExtResource("2_kqvl5")
+init_state = NodePath("Idle_State")
+rabbit = NodePath("..")
+
+[node name="Horizontal_State" type="Node" parent="State_Manager"]
+script = ExtResource("4_kkgei")
+
+[node name="Idle_State" type="Node" parent="State_Manager"]
+script = ExtResource("5_1iqw1")
+
+[node name="Vertical_State" type="Node" parent="State_Manager"]
+script = ExtResource("6_gonfp")
