@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://danre0tbddxgh"]
+
+[ext_resource type="FontFile" uid="uid://ccp7qu1j2fr0g" path="res://Fonts/BPdotsUnicaseSquareBold.otf" id="1_81xcc"]
+
+[resource]
+default_font = ExtResource("1_81xcc")
+default_font_size = 8
+Label/colors/font_color = Color(0, 0, 0, 1)

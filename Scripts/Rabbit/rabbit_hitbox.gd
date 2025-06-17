@@ -1,11 +1,6 @@
-extends Node
-class_name Recycling_Bin
-@onready var bin_button : TextureButton = $Bin_Button
-var recycling_hp = 6000
-var cooldown
-
-signal _add_recycle_bin
-
+extends Area2D
+class_name Rabbit_Hitbox
+@export var damage = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,7 +10,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_bin_button_pressed() -> void:
-	_add_recycle_bin.emit()

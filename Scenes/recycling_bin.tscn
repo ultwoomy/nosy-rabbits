@@ -14,3 +14,5 @@ texture_pressed = ExtResource("2_us3u4")
 texture_hover = ExtResource("2_us3u4")
 texture_disabled = ExtResource("2_us3u4")
 texture_focused = ExtResource("2_us3u4")
+
+[connection signal="pressed" from="Bin_Button" to="." method="_on_bin_button_pressed"]

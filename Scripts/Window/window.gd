@@ -1,7 +1,7 @@
 extends Node
 class_name Base_Window
 @onready var uibar : Control = $Uibar
-
+@onready var hitbox : Area2D = $Hitbox
 @export var size : Vector2
 
 var id : String = "BASE"
@@ -10,7 +10,8 @@ var shape : Sprite2D
 var minimized : bool = false
 var minimizable : bool = true
 var draggable : bool = true
-var hp : int = 100
+var max_hp : int = 2000
+var hp : int = 2000
 var deletable : bool = true
 
 var in_drag_bar : bool = false
@@ -26,6 +27,10 @@ signal window_maximized(id)
 
 func _enter():
 	active = true
+	uibar.mouse_entered.connect(self._mouse_enter_hitbox)
+	uibar.mouse_exited.connect(self._mouse_exit_hitbox)
+	uibar.get_child(1).pressed.connect(self._on_minimize_pressed)
+	uibar.get_child(2).pressed.connect(self._on_delete_pressed)
 	
 func _exit():
 	delete_window.emit(self)
@@ -35,6 +40,13 @@ func _on_damage(damage):
 
 func _pause():
 	pass
+	
+func _set_hp(new_hp):
+	max_hp = new_hp
+	hp = new_hp
+
+func get_hp():
+	return hp
 
 func _set_minimizable_status(x):
 	minimizable = x
@@ -46,10 +58,13 @@ func _mouse_exit_hitbox() -> void:
 	in_drag_bar = false
 	
 func _process(delta: float) -> void:
-	if(Input.is_mouse_button_pressed(1) and in_drag_bar and draggable and not currently_dragging and not minimizing and not maximizing):
+	var mouse_down = false
+	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+		mouse_down = true
+	if(mouse_down and in_drag_bar and draggable and not currently_dragging and not minimizing and not maximizing):
 		offset = Vector2(get_viewport().get_mouse_position().x-self.position.x+50,get_viewport().get_mouse_position().y-self.position.y+50)
 		currently_dragging = true
-	elif(not Input.is_mouse_button_pressed(1)):
+	elif(not mouse_down):
 		currently_dragging = false
 		
 	if currently_dragging:
@@ -72,6 +87,14 @@ func _process(delta: float) -> void:
 		if self.position.y <= saved_position.y:
 			maximizing = false
 			window_maximized.emit(self)
+			
+	if hitbox.has_overlapping_areas():
+		var rabbits = hitbox.get_overlapping_areas()
+		for r in rabbits:
+			if r is Rabbit_Hitbox:
+				hp -= r.damage
+				if hp <= 0:
+					_exit()
 
 
 func _on_delete_pressed() -> void:

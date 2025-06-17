@@ -52,6 +52,7 @@ texture_disabled = ExtResource("2_g7plu")
 texture_focused = ExtResource("2_g7plu")
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(50, 38)

@@ -2,13 +2,8 @@ extends State
 class_name Vertical_Movement_State
 
 func _enter():
-	# Swap sprite to leftward or rightward facing
-	if (rabbit.direction < 0):
-		rabbit.sprite.frame = 1
-		rabbit.scale.y = abs(rabbit.scale.y)
-	else:
-		rabbit.sprite.frame = 1
-		rabbit.scale.y = -abs(rabbit.scale.y)
+	# No sprite swap
+	pass
 	
 func _exit():
 	pass

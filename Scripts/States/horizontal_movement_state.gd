@@ -14,7 +14,10 @@ func _exit():
 	pass
 	
 func _tick():
-	pass
+	if rabbit.sprite.frame == 0:
+		rabbit.sprite.frame = 1
+	else:
+		rabbit.sprite.frame = 0
 
 func update(delta: float):
 	if (rabbit.position.x + rabbit.direction * rabbit.speed > 5) and (rabbit.position.x + rabbit.direction * rabbit.speed < 315):

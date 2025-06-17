@@ -15,13 +15,27 @@ run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Gvars="*res://Scripts/gvars.gd"
+
 [display]
 
 window/size/viewport_width=320
 window/size/viewport_height=160
 window/stretch/mode="viewport"
 
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
+[layer_names]
+
+2d_physics/layer_1="Rabbit"
+2d_physics/layer_2="Window"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

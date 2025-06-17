@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 
 func _check_children(ref : Base_Window):
 	minimized_windows.append(ref)
+	ref.hide()
 	var cbutton = button.instantiate()
 	add_child(cbutton)
 	cbutton.position = Vector2(190 + 20 * (minimized_windows.size() - 1),146)

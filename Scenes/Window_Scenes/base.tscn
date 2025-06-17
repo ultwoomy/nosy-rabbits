@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c06d84vcf16pb"]
+[gd_scene load_steps=4 format=3 uid="uid://c06d84vcf16pb"]
 
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="1_ekv0r"]
 [ext_resource type="Script" path="res://Scripts/Window/window.gd" id="1_rs2rs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6drd"]
+size = Vector2(100, 56)
 
 [node name="Base" type="Node2D"]
 script = ExtResource("1_rs2rs")
@@ -49,6 +52,14 @@ texture_pressed = ExtResource("1_ekv0r")
 texture_hover = ExtResource("1_ekv0r")
 texture_disabled = ExtResource("1_ekv0r")
 texture_focused = ExtResource("1_ekv0r")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 33)
+shape = SubResource("RectangleShape2D_w6drd")
+debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 
 [connection signal="mouse_entered" from="Uibar" to="." method="_mouse_enter_hitbox"]
 [connection signal="mouse_exited" from="Uibar" to="." method="_mouse_exit_hitbox"]

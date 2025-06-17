@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhoqejbom2jg8"]
+[gd_scene load_steps=11 format=3 uid="uid://bhoqejbom2jg8"]
 
 [ext_resource type="Script" path="res://Scripts/Rabbit/rabbit.gd" id="1_2vsx6"]
 [ext_resource type="Script" path="res://Scripts/States/state_manager.gd" id="2_kqvl5"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Scripts/States/horizontal_movement_state.gd" id="4_kkgei"]
 [ext_resource type="Script" path="res://Scripts/States/idle_state.gd" id="5_1iqw1"]
 [ext_resource type="Script" path="res://Scripts/States/vertical_movement_state.gd" id="6_gonfp"]
+[ext_resource type="Script" path="res://Scripts/States/return_state.gd" id="7_i2n8n"]
+[ext_resource type="Script" path="res://Scripts/Rabbit/rabbit_hitbox.gd" id="7_m0a6a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cstm"]
 animations = [{
@@ -26,6 +28,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_forpo"]
+radius = 53.1507
 
 [node name="Rabbit" type="Node2D"]
 script = ExtResource("1_2vsx6")
@@ -48,3 +53,13 @@ script = ExtResource("5_1iqw1")
 
 [node name="Vertical_State" type="Node" parent="State_Manager"]
 script = ExtResource("6_gonfp")
+
+[node name="Return_State" type="Node" parent="State_Manager"]
+script = ExtResource("7_i2n8n")
+
+[node name="RBox" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("7_m0a6a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RBox"]
+shape = SubResource("CircleShape2D_forpo")
