@@ -13,6 +13,8 @@ var draggable : bool = true
 var max_hp : int = 2000
 var hp : int = 2000
 var deletable : bool = true
+var mouse_down = false
+var click_ban = false
 
 var in_drag_bar : bool = false
 var currently_dragging : bool = false
@@ -24,13 +26,16 @@ var saved_position : Vector2 = Vector2(0,0)
 signal delete_window(id)
 signal minimize_window(id)
 signal window_maximized(id)
+signal focus_window(id)
+signal minimize_completed(id)
 
 func _enter():
 	active = true
-	uibar.mouse_entered.connect(self._mouse_enter_hitbox)
-	uibar.mouse_exited.connect(self._mouse_exit_hitbox)
-	uibar.get_child(1).pressed.connect(self._on_minimize_pressed)
-	uibar.get_child(2).pressed.connect(self._on_delete_pressed)
+	if not uibar.mouse_entered.is_connected(self._mouse_enter_hitbox):
+		uibar.mouse_entered.connect(self._mouse_enter_hitbox)
+		uibar.mouse_exited.connect(self._mouse_exit_hitbox)
+		uibar.get_child(1).pressed.connect(self._on_minimize_pressed)
+		uibar.get_child(2).pressed.connect(self._on_delete_pressed)
 	
 func _exit():
 	delete_window.emit(self)
@@ -58,9 +63,14 @@ func _mouse_exit_hitbox() -> void:
 	in_drag_bar = false
 	
 func _process(delta: float) -> void:
-	var mouse_down = false
-	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and not in_drag_bar:
+		click_ban = true
+	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and not click_ban:
 		mouse_down = true
+		focus_window.emit(self)
+	if Input.is_action_just_released("left_mouse"):
+		click_ban = false
+		mouse_down = false
 	if(mouse_down and in_drag_bar and draggable and not currently_dragging and not minimizing and not maximizing):
 		offset = Vector2(get_viewport().get_mouse_position().x-self.position.x+50,get_viewport().get_mouse_position().y-self.position.y+50)
 		currently_dragging = true
@@ -77,7 +87,7 @@ func _process(delta: float) -> void:
 		if self.position.y > 160:
 			minimizing = false
 			minimized = true
-			minimize_window.emit(self)
+			minimize_completed.emit(self)
 			
 	if maximizing:
 		minimizing = false
@@ -98,12 +108,12 @@ func _process(delta: float) -> void:
 
 
 func _on_delete_pressed() -> void:
-	_exit()
+	if deletable:
+		_exit()
 	
 func _on_minimize_pressed() -> void:
 	if minimizable:
-		minimizing = true
-		saved_position = self.position
+		minimize_window.emit(self)
 
 func _maximize():
 	self.position = saved_position + Vector2(0,200)

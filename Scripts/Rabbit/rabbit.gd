@@ -3,6 +3,7 @@ class_name Rabbit
 @export var interval : float
 var time_active : int
 var direction : int = 1
+var charmed : Base_Window = null
 @export var speed : float
 # Damage being 1 will not deal any damage, should become 2 when tutorial finishes
 @export var damage : int = 1
@@ -52,7 +53,34 @@ func _check_action():
 	if state == STATES.RETURN:
 		next_state = STATES.IDLE
 		decision_made = true
+		
 	if roll <= ai and not decision_made:
+		if charmed != null:
+			var reroll = randi_range(0,20)
+			if reroll <= ai:
+				decision_made = false
+			else:
+				decision_made = true
+		next_state = STATES.RETURN
+		
+	if charmed != null and not decision_made:
+		decision_made = true
+		if charmed.position.x > self.position.x + 30:
+			direction = 1
+			next_state = STATES.RIGHT
+		elif charmed.position.x < self.position.x - 30:
+			direction = -1
+			next_state = STATES.LEFT
+		elif charmed.position.y > self.position.y + 30:
+			direction = 1
+			next_state = STATES.DOWN
+		elif charmed.position.y < self.position.y - 30:
+			direction = -1
+			next_state = STATES.UP
+		else:
+			next_state = STATES.RETURN
+			
+	if roll > ai and not decision_made:
 		hitbox.damage = 0
 		var action = randi_range(1,4)
 		if (action == 1):
@@ -67,8 +95,6 @@ func _check_action():
 		elif(action == 4):
 			direction = 1
 			next_state = STATES.DOWN
-	elif state != STATES.IDLE and not decision_made:
-		next_state = STATES.RETURN
 			
 	state = next_state
 	

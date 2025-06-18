@@ -1,8 +1,12 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://danre0tbddxgh"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://danre0tbddxgh"]
 
 [ext_resource type="FontFile" uid="uid://ccp7qu1j2fr0g" path="res://Fonts/BPdotsUnicaseSquareBold.otf" id="1_81xcc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2hf1"]
+bg_color = Color(0.0987284, 0.0987284, 0.0987283, 1)
 
 [resource]
 default_font = ExtResource("1_81xcc")
 default_font_size = 8
 Label/colors/font_color = Color(0, 0, 0, 1)
+Panel/styles/panel = SubResource("StyleBoxFlat_t2hf1")

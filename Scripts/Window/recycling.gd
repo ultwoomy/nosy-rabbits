@@ -1,6 +1,7 @@
 extends Base_Window
 class_name Recycling
 var recharge :float = 100
+var copy_windows : Array = Gvars.window_pool.duplicate()
 var exceptions : Array = []
 var temp_exceptions : Array = []
 var button_choices : Array = [-1,-1,-1]
@@ -17,67 +18,71 @@ func _ready() -> void:
 	set_buttons()
 	
 func _pressed_1():
-	if recharge >= 100 and button_choices[0] != -1:
-		create_window.emit(Gvars.window_pool[button_choices[0]].internal_name)
-		exceptions.append(Gvars.window_pool[button_choices[0]])
+	if recharge >= 100 and button_choices[0] != null:
+		create_window.emit(button_choices[0].internal_name)
+		exceptions.append(button_choices[0].internal_name)
 		set_buttons()
 		recharge = 0
-		prog_bar.show()
 		
 func _pressed_2():
-	if recharge >= 100 and button_choices[1] != -1:
-		create_window.emit(Gvars.window_pool[button_choices[1]].internal_name)
-		exceptions.append(Gvars.window_pool[button_choices[1]])
+	if recharge >= 100 and button_choices[1] != null:
+		create_window.emit(button_choices[1].internal_name)
+		exceptions.append(button_choices[1].internal_name)
 		set_buttons()
 		recharge = 0
-		prog_bar.show()
 		
 func _pressed_3():
-	if recharge >= 100 and button_choices[2] != -1:
-		create_window.emit(Gvars.window_pool[button_choices[2]].internal_name)
-		exceptions.append(Gvars.window_pool[button_choices[2]])
+	if recharge >= 100 and button_choices[2] != null:
+		create_window.emit(button_choices[2].internal_name)
+		exceptions.append(button_choices[2].internal_name)
 		set_buttons()
 		recharge = 0
-		prog_bar.show()
 	
 	
 func _process(delta: float) -> void:
 	super(delta)
 	if recharge < 100:
-		recharge += 0.5
+		recharge += 0.2
+		prog_bar.show()
 	else:
 		recharge = 100
 		prog_bar.hide()
 	prog_bar.set_value_no_signal(recharge)
 		
 func roll_window():
-	Gvars.window_pool.shuffle()
+	copy_windows.shuffle()
 	var roll = 0
-	if exceptions.size() >= Gvars.window_pool.size():
-		return -1
-	while exceptions.has(Gvars.window_pool[roll].internal_name) or temp_exceptions.has(Gvars.window_pool[roll].internal_name):
+	if exceptions.size() + temp_exceptions.size() >= copy_windows.size():
+		return null
+	while exceptions.has(copy_windows[roll].internal_name) or temp_exceptions.has(copy_windows[roll].internal_name):
 		roll += 1
-	return roll
+	print(exceptions)
+	print(temp_exceptions)
+	print(" ")
+	return copy_windows[roll]
 	
 func set_buttons():
 	var x = roll_window()
-	if x == -1:
+	if not x:
 		choice1.get_child(0).text = "unselectable.png"
+		button_choices[0] = null
 	else:
-		choice1.get_child(0).text = Gvars.window_pool[x].file_name
-	button_choices[0] = x
-	temp_exceptions.append(Gvars.window_pool[x].internal_name)
+		choice1.get_child(0).text = x.file_name
+		temp_exceptions.append(x.internal_name)
+		button_choices[0] = x
 	x = roll_window()
-	if x == -1:
+	if not x:
 		choice2.get_child(0).text = "unselectable.png"
+		button_choices[1] = null
 	else:
-		choice2.get_child(0).text = Gvars.window_pool[x].file_name
-	button_choices[1] = x
-	temp_exceptions.append(Gvars.window_pool[x].internal_name)
+		choice2.get_child(0).text = x.file_name
+		temp_exceptions.append(x.internal_name)
+		button_choices[1] = x
 	x = roll_window()
-	if x == -1:
+	if not x:
 		choice3.get_child(0).text = "unselectable.png"
+		button_choices[2] = null
 	else:
-		choice3.get_child(0).text = Gvars.window_pool[x].file_name
-	button_choices[2] = x
+		choice3.get_child(0).text = x.file_name
+		button_choices[2] = x
 	temp_exceptions.clear()

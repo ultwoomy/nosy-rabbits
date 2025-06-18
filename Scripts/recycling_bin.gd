@@ -2,7 +2,8 @@ extends Node
 class_name Recycling_Bin
 @onready var bin_button : TextureButton = $Bin_Button
 var recycling_hp = 6000
-var cooldown
+var cooldown = 0
+var exceptions : Array = []
 
 signal _add_recycle_bin
 
