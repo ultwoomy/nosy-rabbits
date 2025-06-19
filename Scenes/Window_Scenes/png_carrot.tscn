@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0xheixwy8wf"]
+[gd_scene load_steps=8 format=3 uid="uid://b0xheixwy8wf"]
 
 [ext_resource type="Script" path="res://Scripts/Window/png_carrot.gd" id="1_w5vxm"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="2_ltd0b"]
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_wclmp"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="3_aw1ls"]
+[ext_resource type="Texture2D" uid="uid://bj56qy7vr5r7r" path="res://Sprites/Carrot_Ad.png" id="4_5pnks"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xo08"]
+size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmxtc"]
 size = Vector2(100, 56)
@@ -23,18 +29,21 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Draggable_Bar" type="Sprite2D" parent="Uibar"]
-self_modulate = Color(1, 1, 0.505882, 1)
-position = Vector2(50, 5)
-scale = Vector2(10, 1)
-texture = ExtResource("2_wclmp")
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 100.0
+offset_bottom = 10.0
+texture = ExtResource("2_ltd0b")
+patch_margin_left = 10
+patch_margin_right = 40
 
 [node name="Minimize" type="TextureButton" parent="Uibar"]
-self_modulate = Color(0.511562, 1, 0.776173, 1)
 layout_mode = 0
-offset_left = 80.0
-offset_right = 90.0
-offset_bottom = 10.0
+offset_left = 69.0
+offset_top = -1.0
+offset_right = 79.0
+offset_bottom = 9.0
 texture_normal = ExtResource("2_wclmp")
 texture_pressed = ExtResource("2_wclmp")
 texture_hover = ExtResource("2_wclmp")
@@ -42,16 +51,22 @@ texture_disabled = ExtResource("2_wclmp")
 texture_focused = ExtResource("2_wclmp")
 
 [node name="Delete" type="TextureButton" parent="Uibar"]
-self_modulate = Color(1, 0.517647, 1, 1)
 layout_mode = 0
-offset_left = 90.0
-offset_right = 100.0
-offset_bottom = 10.0
+offset_left = 89.0
+offset_top = -1.0
+offset_right = 99.0
+offset_bottom = 9.0
 texture_normal = ExtResource("2_wclmp")
 texture_pressed = ExtResource("2_wclmp")
 texture_hover = ExtResource("2_wclmp")
 texture_disabled = ExtResource("2_wclmp")
 texture_focused = ExtResource("2_wclmp")
+
+[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
+position = Vector2(84, 4)
+shape = SubResource("RectangleShape2D_3xo08")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
@@ -62,6 +77,11 @@ shape = SubResource("RectangleShape2D_cmxtc")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 
 [node name="Carrot" type="Sprite2D" parent="."]
-position = Vector2(0, 33)
-scale = Vector2(10, 5.6)
-texture = ExtResource("2_wclmp")
+position = Vector2(9.53674e-07, 33)
+scale = Vector2(1.5625, 1.75)
+texture = ExtResource("4_5pnks")
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.78814e-07, 33)
+scale = Vector2(1, 0.56)
+sprite_frames = ExtResource("3_aw1ls")

@@ -1,12 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://giabih1qig13"]
+[gd_scene load_steps=8 format=3 uid="uid://giabih1qig13"]
 
 [ext_resource type="Script" path="res://Scripts/Window/png_cat.gd" id="1_um3mi"]
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_b3fke"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="2_cir06"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="3_qegn8"]
+[ext_resource type="Texture2D" uid="uid://smkbd5ub6huh" path="res://Sprites/Cat_Ad.png" id="4_p61or"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rloe"]
+size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kn32f"]
 size = Vector2(100, 56)
 
 [node name="PngCat" type="Node2D"]
+position = Vector2(4, 4)
 script = ExtResource("1_um3mi")
 
 [node name="Uibar" type="Control" parent="."]
@@ -23,17 +30,20 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Draggable_Bar" type="Sprite2D" parent="Uibar"]
-self_modulate = Color(1, 1, 0.505882, 1)
-position = Vector2(50, 5)
-scale = Vector2(10, 1)
-texture = ExtResource("2_b3fke")
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 100.0
+offset_bottom = 10.0
+texture = ExtResource("2_cir06")
+patch_margin_left = 10
+patch_margin_right = 40
 
 [node name="Minimize" type="TextureButton" parent="Uibar"]
 self_modulate = Color(0.511562, 1, 0.776173, 1)
 layout_mode = 0
-offset_left = 80.0
-offset_right = 90.0
+offset_left = 69.0
+offset_right = 79.0
 offset_bottom = 10.0
 texture_normal = ExtResource("2_b3fke")
 texture_pressed = ExtResource("2_b3fke")
@@ -44,14 +54,20 @@ texture_focused = ExtResource("2_b3fke")
 [node name="Delete" type="TextureButton" parent="Uibar"]
 self_modulate = Color(1, 0.517647, 1, 1)
 layout_mode = 0
-offset_left = 90.0
-offset_right = 100.0
+offset_left = 89.0
+offset_right = 99.0
 offset_bottom = 10.0
 texture_normal = ExtResource("2_b3fke")
 texture_pressed = ExtResource("2_b3fke")
 texture_hover = ExtResource("2_b3fke")
 texture_disabled = ExtResource("2_b3fke")
 texture_focused = ExtResource("2_b3fke")
+
+[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
+position = Vector2(84, 5)
+shape = SubResource("RectangleShape2D_7rloe")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
@@ -62,6 +78,11 @@ shape = SubResource("RectangleShape2D_kn32f")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 
 [node name="Cat" type="Sprite2D" parent="."]
-position = Vector2(0, 33)
-scale = Vector2(10, 5.6)
-texture = ExtResource("2_b3fke")
+position = Vector2(9.53674e-07, 33)
+scale = Vector2(1.5625, 1.75)
+texture = ExtResource("4_p61or")
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.78814e-07, 33)
+scale = Vector2(1, 0.56)
+sprite_frames = ExtResource("3_qegn8")

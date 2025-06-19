@@ -8,11 +8,6 @@ var window_pool : Array = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var temp = File_Extension.new()
-	temp.file_name = "tutorial.txt"
-	temp.internal_name = "tutorial"
-	window_pool.append(temp)
-	
-	temp = File_Extension.new()
 	temp.file_name = "catscradle.png"
 	temp.internal_name = "png_cat"
 	window_pool.append(temp)
@@ -28,8 +23,18 @@ func _ready() -> void:
 	window_pool.append(temp)
 	
 	temp = File_Extension.new()
-	temp.file_name = "iruntoday.mp4"
+	temp.file_name = "icleantoday.mp4"
 	temp.internal_name = "popup_ad"
+	window_pool.append(temp)
+	
+	temp = File_Extension.new()
+	temp.file_name = "snake.exe"
+	temp.internal_name = "pc_snake"
+	window_pool.append(temp)
+	
+	temp = File_Extension.new()
+	temp.file_name = "groblin.png"
+	temp.internal_name = "png_groblin"
 	window_pool.append(temp)
 
 

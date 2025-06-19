@@ -20,7 +20,7 @@ func _check_children(ref : Base_Window):
 	ref.hide()
 	var cbutton = button.instantiate()
 	add_child(cbutton)
-	cbutton.position = Vector2(190 + 20 * (minimized_windows.size() - 1),146)
+	cbutton.position = Vector2(190 + 20 * (minimized_windows.size() - 1),5)
 	cbutton.id = minimized_windows.size() - 1
 	cbutton.start_maximize.connect(self._max)
 	corresponding_buttons.append(cbutton)

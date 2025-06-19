@@ -1,10 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmcalfqphlm5p"]
+[gd_scene load_steps=11 format=3 uid="uid://bmcalfqphlm5p"]
 
 [ext_resource type="Script" path="res://Scripts/Window/recycling.gd" id="1_vysgj"]
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_a63x3"]
+[ext_resource type="Texture2D" uid="uid://bw4q0a1v3tt85" path="res://Sprites/Rectangular_Window.png" id="2_cle2c"]
 [ext_resource type="Theme" uid="uid://danre0tbddxgh" path="res://Sprites/global_theme.tres" id="3_k81pc"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="3_osk0v"]
 [ext_resource type="Texture2D" uid="uid://cdkgaixrow56h" path="res://Sprites/long_grey_square.png" id="4_32huq"]
 [ext_resource type="Texture2D" uid="uid://b1lx6v18aba7w" path="res://Sprites/long_grey_dark_square.png" id="5_cudta"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="6_d4wyh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aveyb"]
+size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dy5lh"]
 size = Vector2(144, 99)
@@ -12,30 +18,40 @@ size = Vector2(144, 99)
 [node name="Recycling" type="Node2D"]
 script = ExtResource("1_vysgj")
 
+[node name="Back" type="NinePatchRect" parent="."]
+offset_left = -50.0
+offset_top = -6.0
+offset_right = 97.0
+offset_bottom = 105.0
+texture = ExtResource("2_cle2c")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 32
+patch_margin_bottom = 10
+
 [node name="Uibar" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 144.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = -50.0
+offset_top = -6.0
+offset_right = 96.0
+offset_bottom = 3.0
 
-[node name="Draggable_Bar" type="Sprite2D" parent="Uibar"]
-self_modulate = Color(1, 1, 0.505882, 1)
-position = Vector2(72, 5)
-scale = Vector2(14.4, 1)
-texture = ExtResource("2_a63x3")
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 147.0
+offset_bottom = 10.0
+texture = ExtResource("3_osk0v")
+patch_margin_left = 10
+patch_margin_right = 40
 
 [node name="Minimize" type="TextureButton" parent="Uibar"]
-self_modulate = Color(0.511562, 1, 0.776173, 1)
 layout_mode = 0
-offset_left = 124.0
-offset_right = 134.0
-offset_bottom = 10.0
+offset_left = 116.0
+offset_top = -1.0
+offset_right = 126.0
+offset_bottom = 9.0
 texture_normal = ExtResource("2_a63x3")
 texture_pressed = ExtResource("2_a63x3")
 texture_hover = ExtResource("2_a63x3")
@@ -43,34 +59,37 @@ texture_disabled = ExtResource("2_a63x3")
 texture_focused = ExtResource("2_a63x3")
 
 [node name="Delete" type="TextureButton" parent="Uibar"]
-self_modulate = Color(1, 0.517647, 1, 1)
 layout_mode = 0
-offset_left = 134.0
-offset_right = 144.0
-offset_bottom = 10.0
+offset_left = 136.0
+offset_top = -1.0
+offset_right = 146.0
+offset_bottom = 9.0
 texture_normal = ExtResource("2_a63x3")
 texture_pressed = ExtResource("2_a63x3")
 texture_hover = ExtResource("2_a63x3")
 texture_disabled = ExtResource("2_a63x3")
 texture_focused = ExtResource("2_a63x3")
 
+[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
+position = Vector2(131, 4)
+shape = SubResource("RectangleShape2D_aveyb")
+
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(72, 59.5)
+position = Vector2(23, 53)
 shape = SubResource("RectangleShape2D_dy5lh")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+offset_left = -50.0
+offset_top = -5.0
 theme = ExtResource("3_k81pc")
-
-[node name="Recycling_Background" type="Sprite2D" parent="Control"]
-position = Vector2(72, 59.5)
-scale = Vector2(14.4, 9.9)
-texture = ExtResource("2_a63x3")
 
 [node name="Label" type="Label" parent="Control"]
 layout_mode = 0
@@ -154,16 +173,18 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_top = 10.0
-offset_right = 144.0
-offset_bottom = 109.0
+offset_left = -49.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 103.0
 step = 1.0
 show_percentage = false
 
-[connection signal="mouse_entered" from="Uibar" to="." method="_mouse_enter_hitbox"]
-[connection signal="mouse_exited" from="Uibar" to="." method="_mouse_exit_hitbox"]
-[connection signal="pressed" from="Uibar/Minimize" to="." method="_on_minimize_pressed"]
-[connection signal="pressed" from="Uibar/Delete" to="." method="_on_delete_pressed"]
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(23, 53)
+scale = Vector2(1.46, 1)
+sprite_frames = ExtResource("6_d4wyh")
+
 [connection signal="pressed" from="Control/Choice1" to="." method="_pressed_1"]
 [connection signal="pressed" from="Control/Choice2" to="." method="_pressed_2"]
 [connection signal="pressed" from="Control/Choice3" to="." method="_pressed_3"]

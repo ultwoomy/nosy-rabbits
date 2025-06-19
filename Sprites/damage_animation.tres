@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://bq4qxl53eom0y"]
+
+[ext_resource type="Texture2D" uid="uid://bu5it6ejw1gxw" path="res://Sprites/crack1.png" id="1_1xbuo"]
+[ext_resource type="Texture2D" uid="uid://du8cniut60t8a" path="res://Sprites/crack2.png" id="2_ubdm2"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1xbuo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ubdm2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

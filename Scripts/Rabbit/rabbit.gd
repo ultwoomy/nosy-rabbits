@@ -65,16 +65,16 @@ func _check_action():
 		
 	if charmed != null and not decision_made:
 		decision_made = true
-		if charmed.position.x > self.position.x + 30:
+		if charmed.position.x > self.position.x + 20:
 			direction = 1
 			next_state = STATES.RIGHT
-		elif charmed.position.x < self.position.x - 30:
+		elif charmed.position.x < self.position.x - 20:
 			direction = -1
 			next_state = STATES.LEFT
-		elif charmed.position.y > self.position.y + 30:
+		elif charmed.position.y > self.position.y + 20:
 			direction = 1
 			next_state = STATES.DOWN
-		elif charmed.position.y < self.position.y - 30:
+		elif charmed.position.y < self.position.y - 20:
 			direction = -1
 			next_state = STATES.UP
 		else:
@@ -105,3 +105,10 @@ func _process(delta: float) -> void:
 	var overlap = hitbox.get_overlapping_areas()
 	if overlap.is_empty():
 		Gvars.player_hp -= damage
+	if hitbox.has_overlapping_areas():
+		var windows = hitbox.get_overlapping_areas()
+		var shots_fired = false
+		for w in windows:
+			if w.get_parent() is Base_Window and not shots_fired:
+				w.get_parent()._take_damage(damage)
+				shots_fired = true

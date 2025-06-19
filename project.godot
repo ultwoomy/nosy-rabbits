@@ -23,11 +23,8 @@ Gvars="*res://Scripts/gvars.gd"
 
 window/size/viewport_width=320
 window/size/viewport_height=160
-window/stretch/mode="viewport"
-
-[gui]
-
-theme/default_font_multichannel_signed_distance_field=true
+window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://Sprites/Mouse Icons/Size1/Pointer.png"
 
 [input]
 

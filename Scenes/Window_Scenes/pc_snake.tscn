@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://bn3nmj83kf27"]
+
+[ext_resource type="Script" path="res://Scripts/Window/pc_snake.gd" id="1_acncs"]
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_3hdyu"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="2_kd58e"]
+[ext_resource type="Script" path="res://Scripts/Window/snake_game.gd" id="3_xe6o2"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="4_hipiu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xm58a"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nn23i"]
+size = Vector2(96, 85)
+
+[node name="PcSnake" type="Node2D"]
+script = ExtResource("1_acncs")
+
+[node name="Uibar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -5.0
+offset_right = 46.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 96.0
+offset_bottom = 10.0
+texture = ExtResource("2_kd58e")
+patch_margin_left = 10
+patch_margin_right = 40
+
+[node name="Minimize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = -1.0
+offset_right = 75.0
+offset_bottom = 9.0
+texture_normal = ExtResource("2_3hdyu")
+texture_pressed = ExtResource("2_3hdyu")
+texture_hover = ExtResource("2_3hdyu")
+texture_disabled = ExtResource("2_3hdyu")
+texture_focused = ExtResource("2_3hdyu")
+
+[node name="Delete" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = -1.0
+offset_right = 95.0
+offset_bottom = 9.0
+texture_normal = ExtResource("2_3hdyu")
+texture_pressed = ExtResource("2_3hdyu")
+texture_hover = ExtResource("2_3hdyu")
+texture_disabled = ExtResource("2_3hdyu")
+texture_focused = ExtResource("2_3hdyu")
+
+[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
+position = Vector2(80, 4)
+shape = SubResource("RectangleShape2D_xm58a")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2, 47.5)
+shape = SubResource("RectangleShape2D_nn23i")
+debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
+
+[node name="SnakeGame" type="Node2D" parent="."]
+position = Vector2(-50, 5)
+script = ExtResource("3_xe6o2")
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, 47.5)
+scale = Vector2(0.96, 0.85)
+sprite_frames = ExtResource("4_hipiu")

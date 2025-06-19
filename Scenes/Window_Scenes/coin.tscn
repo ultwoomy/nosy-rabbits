@@ -1,0 +1,103 @@
+[gd_scene load_steps=9 format=3 uid="uid://cw00rv8mlkj0e"]
+
+[ext_resource type="Script" path="res://Scripts/Window/coin.gd" id="1_turtp"]
+[ext_resource type="Texture2D" uid="uid://bw4q0a1v3tt85" path="res://Sprites/Rectangular_Window.png" id="2_ju18h"]
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_y2ybb"]
+[ext_resource type="Theme" uid="uid://danre0tbddxgh" path="res://Sprites/global_theme.tres" id="3_ef3s5"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="3_n1v0d"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="4_hog2k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ih4ed"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_08c47"]
+size = Vector2(74, 57)
+
+[node name="Coin" type="Node2D" node_paths=PackedStringArray("text")]
+script = ExtResource("1_turtp")
+text = NodePath("Score_Label")
+
+[node name="Back" type="NinePatchRect" parent="."]
+offset_left = -50.0
+offset_top = -6.0
+offset_right = 24.0
+offset_bottom = 62.0
+texture = ExtResource("2_ju18h")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 32
+patch_margin_bottom = 10
+
+[node name="Uibar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -5.0
+offset_right = 23.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 74.0
+offset_bottom = 10.0
+texture = ExtResource("3_n1v0d")
+patch_margin_left = 10
+patch_margin_right = 40
+
+[node name="Minimize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = -1.0
+offset_right = 53.0
+offset_bottom = 9.0
+texture_normal = ExtResource("2_y2ybb")
+texture_pressed = ExtResource("2_y2ybb")
+texture_hover = ExtResource("2_y2ybb")
+texture_disabled = ExtResource("2_y2ybb")
+texture_focused = ExtResource("2_y2ybb")
+
+[node name="Delete" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = -1.0
+offset_right = 73.0
+offset_bottom = 9.0
+texture_normal = ExtResource("2_y2ybb")
+texture_pressed = ExtResource("2_y2ybb")
+texture_hover = ExtResource("2_y2ybb")
+texture_disabled = ExtResource("2_y2ybb")
+texture_focused = ExtResource("2_y2ybb")
+
+[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
+position = Vector2(58, 4)
+shape = SubResource("RectangleShape2D_ih4ed")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-13, 33.5)
+shape = SubResource("RectangleShape2D_08c47")
+debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
+
+[node name="Score_Label" type="Label" parent="."]
+offset_left = -47.0
+offset_top = 47.0
+offset_right = 21.0
+offset_bottom = 57.0
+theme = ExtResource("3_ef3s5")
+text = "Score: "
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(-13, 33.5)
+scale = Vector2(0.74, 0.57)
+sprite_frames = ExtResource("4_hog2k")

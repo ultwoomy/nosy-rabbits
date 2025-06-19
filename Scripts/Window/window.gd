@@ -2,6 +2,7 @@ extends Node
 class_name Base_Window
 @onready var uibar : Control = $Uibar
 @onready var hitbox : Area2D = $Hitbox
+@onready var damage : AnimatedSprite2D = $Damage
 @export var size : Vector2
 
 var id : String = "BASE"
@@ -13,6 +14,7 @@ var draggable : bool = true
 var max_hp : int = 2000
 var hp : int = 2000
 var deletable : bool = true
+var immune : bool = false
 var mouse_down = false
 var click_ban = false
 
@@ -28,14 +30,24 @@ signal minimize_window(id)
 signal window_maximized(id)
 signal focus_window(id)
 signal minimize_completed(id)
+signal set_to_pointer
+signal set_to_hand
+signal set_to_prohibit
 
 func _enter():
 	active = true
+	damage.hide()
+	uibar.get_child(1).show_behind_parent = true
+	uibar.get_child(2).show_behind_parent = true
+	uibar.get_child(3).mouse_entered.connect(self.swap_prohibited_cursor)
 	if not uibar.mouse_entered.is_connected(self._mouse_enter_hitbox):
 		uibar.mouse_entered.connect(self._mouse_enter_hitbox)
 		uibar.mouse_exited.connect(self._mouse_exit_hitbox)
 		uibar.get_child(1).pressed.connect(self._on_minimize_pressed)
 		uibar.get_child(2).pressed.connect(self._on_delete_pressed)
+		
+func swap_prohibited_cursor():
+	set_to_prohibit.emit()
 	
 func _exit():
 	delete_window.emit(self)
@@ -58,9 +70,11 @@ func _set_minimizable_status(x):
 
 func _mouse_enter_hitbox() -> void:
 	in_drag_bar = true
+	set_to_hand.emit()
 	
 func _mouse_exit_hitbox() -> void:
 	in_drag_bar = false
+	set_to_pointer.emit()
 	
 func _process(delta: float) -> void:
 	if(Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and not in_drag_bar:
@@ -97,14 +111,6 @@ func _process(delta: float) -> void:
 		if self.position.y <= saved_position.y:
 			maximizing = false
 			window_maximized.emit(self)
-			
-	if hitbox.has_overlapping_areas():
-		var rabbits = hitbox.get_overlapping_areas()
-		for r in rabbits:
-			if r is Rabbit_Hitbox:
-				hp -= r.damage
-				if hp <= 0:
-					_exit()
 
 
 func _on_delete_pressed() -> void:
@@ -119,3 +125,17 @@ func _maximize():
 	self.position = saved_position + Vector2(0,200)
 	self.scale = Vector2(0.4,0.4)
 	maximizing = true
+
+func _take_damage(d):
+	if not immune:
+		hp -= d
+	if hp <= 0:
+		_exit()
+	if hp <= max_hp/4:
+		damage.show()
+		damage.frame = 1
+	elif hp <= max_hp/2:
+		damage.show()
+		damage.frame = 0
+	else:
+		damage.hide()

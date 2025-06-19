@@ -1,15 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjym8bos6s3mo"]
+[gd_scene load_steps=11 format=3 uid="uid://bjym8bos6s3mo"]
 
+[ext_resource type="Texture2D" uid="uid://bhy67l0mrje6i" path="res://Sprites/Desktop_Background.png" id="1_775fa"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_evxqj"]
 [ext_resource type="PackedScene" uid="uid://bhoqejbom2jg8" path="res://Scenes/rabbit.tscn" id="1_rlf78"]
 [ext_resource type="Script" path="res://Scripts/Window/window_manager.gd" id="2_y45lw"]
 [ext_resource type="PackedScene" uid="uid://dvvhywkx6vbx1" path="res://Scenes/desktop_bar.tscn" id="4_ad3v8"]
 [ext_resource type="PackedScene" uid="uid://d2uy5m2bg5hg5" path="res://Scenes/recycling_bin.tscn" id="5_et004"]
+[ext_resource type="Texture2D" uid="uid://dkrgpw5xmop3k" path="res://Sprites/PC_Outline1.png" id="6_gm566"]
+[ext_resource type="Script" path="res://Scripts/size_change_detector.gd" id="6_hyjl6"]
+[ext_resource type="Texture2D" uid="uid://htbew21vq45r" path="res://Sprites/Notepad_Icon.png" id="8_hwp1v"]
+[ext_resource type="Texture2D" uid="uid://bsjt1jgm8u7v3" path="res://Sprites/Mouse Icons/Size1/Hand.png" id="10_et0gr"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_evxqj")
 
-[node name="DesktopBar" parent="." node_paths=PackedStringArray("window_manager") instance=ExtResource("4_ad3v8")]
-z_index = 99
-window_manager = NodePath("../Window_Manager")
+[node name="DesktopBackground" type="Sprite2D" parent="."]
+position = Vector2(161.5, 76.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_775fa")
 
 [node name="Rabbit" parent="." instance=ExtResource("1_rlf78")]
 position = Vector2(156, 75)
@@ -18,10 +26,47 @@ interval = 2.0
 speed = 0.3
 damage = 2
 
-[node name="Window_Manager" type="Node" parent="." node_paths=PackedStringArray("desktop_bar", "recycling_bin", "rabbits")]
+[node name="Window_Manager" type="Node" parent="." node_paths=PackedStringArray("desktop_bar", "recycling_bin", "rabbits", "size_change", "notepad_icon")]
 script = ExtResource("2_y45lw")
 desktop_bar = NodePath("../DesktopBar")
 recycling_bin = NodePath("../RecyclingBin")
 rabbits = [NodePath("../Rabbit")]
+size_change = NodePath("../Size_Change")
+notepad_icon = NodePath("../NotepadIcon")
 
 [node name="RecyclingBin" parent="." instance=ExtResource("5_et004")]
+position = Vector2(10, 15)
+
+[node name="DesktopBar" parent="." node_paths=PackedStringArray("window_manager") instance=ExtResource("4_ad3v8")]
+position = Vector2(0, 136)
+window_manager = NodePath("../Window_Manager")
+
+[node name="Size_Change" type="Node2D" parent="."]
+script = ExtResource("6_hyjl6")
+
+[node name="PcOutline1" type="NinePatchRect" parent="."]
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 325.0
+offset_bottom = 170.0
+texture = ExtResource("6_gm566")
+patch_margin_left = 10
+patch_margin_top = 30
+patch_margin_right = 50
+patch_margin_bottom = 40
+
+[node name="NotepadIcon" type="TextureButton" parent="."]
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 27.0
+offset_bottom = 56.0
+texture_normal = ExtResource("8_hwp1v")
+texture_pressed = ExtResource("8_hwp1v")
+texture_hover = ExtResource("8_hwp1v")
+texture_disabled = ExtResource("8_hwp1v")
+texture_focused = ExtResource("8_hwp1v")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+texture = ExtResource("10_et0gr")
+
+[connection signal="pressed" from="NotepadIcon" to="." method="_on_notepad_icon_pressed"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdwiwjxudxj1k"]
+[gd_scene load_steps=5 format=3 uid="uid://bdwiwjxudxj1k"]
 
 [ext_resource type="Script" path="res://Scripts/Window/window.gd" id="1_jrjv4"]
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_g7plu"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="3_tj0m6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_157ll"]
 size = Vector2(100, 56)
@@ -58,6 +59,11 @@ collision_layer = 2
 position = Vector2(50, 38)
 shape = SubResource("RectangleShape2D_157ll")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(50, 38)
+scale = Vector2(1, 0.56)
+sprite_frames = ExtResource("3_tj0m6")
 
 [connection signal="mouse_entered" from="Uibar" to="." method="_mouse_enter_hitbox"]
 [connection signal="mouse_exited" from="Uibar" to="." method="_mouse_exit_hitbox"]
