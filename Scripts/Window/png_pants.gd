@@ -1,0 +1,2 @@
+extends Base_Window
+class_name Png_Pants

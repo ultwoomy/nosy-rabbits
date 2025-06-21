@@ -1,13 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn3nmj83kf27"]
+[gd_scene load_steps=7 format=3 uid="uid://bn3nmj83kf27"]
 
 [ext_resource type="Script" path="res://Scripts/Window/pc_snake.gd" id="1_acncs"]
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_3hdyu"]
 [ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="2_kd58e"]
 [ext_resource type="Script" path="res://Scripts/Window/snake_game.gd" id="3_xe6o2"]
 [ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="4_hipiu"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xm58a"]
-size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nn23i"]
 size = Vector2(96, 85)
@@ -62,11 +59,16 @@ texture_hover = ExtResource("2_3hdyu")
 texture_disabled = ExtResource("2_3hdyu")
 texture_focused = ExtResource("2_3hdyu")
 
-[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
-position = Vector2(80, 4)
-shape = SubResource("RectangleShape2D_xm58a")
+[node name="Maximize" type="TextureButton" parent="Uibar"]
+offset_left = 75.0
+offset_top = -1.0
+offset_right = 85.0
+offset_bottom = 9.0
+texture_normal = ExtResource("2_3hdyu")
+texture_pressed = ExtResource("2_3hdyu")
+texture_hover = ExtResource("2_3hdyu")
+texture_disabled = ExtResource("2_3hdyu")
+texture_focused = ExtResource("2_3hdyu")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2

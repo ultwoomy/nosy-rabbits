@@ -25,6 +25,8 @@ var maximizing : bool = false
 var offset : Vector2 = Vector2(0,0)
 var saved_position : Vector2 = Vector2(0,0)
 
+var prohibit_timer : Timer = Timer.new()
+
 signal delete_window(id)
 signal minimize_window(id)
 signal window_maximized(id)
@@ -39,15 +41,27 @@ func _enter():
 	damage.hide()
 	uibar.get_child(1).show_behind_parent = true
 	uibar.get_child(2).show_behind_parent = true
-	uibar.get_child(3).mouse_entered.connect(self.swap_prohibited_cursor)
+	uibar.get_child(3).show_behind_parent = true
 	if not uibar.mouse_entered.is_connected(self._mouse_enter_hitbox):
 		uibar.mouse_entered.connect(self._mouse_enter_hitbox)
 		uibar.mouse_exited.connect(self._mouse_exit_hitbox)
 		uibar.get_child(1).pressed.connect(self._on_minimize_pressed)
 		uibar.get_child(2).pressed.connect(self._on_delete_pressed)
+		uibar.get_child(3).pressed.connect(self.swap_prohibited_cursor)
+		prohibit_timer.autostart = false
+		prohibit_timer.one_shot = true
+		prohibit_timer.timeout.connect(self._swap_back)
+		add_child(prohibit_timer)
 		
 func swap_prohibited_cursor():
 	set_to_prohibit.emit()
+	prohibit_timer.start(1)
+	
+func _swap_back():
+	if in_drag_bar:
+		set_to_hand.emit()
+	else:
+		set_to_pointer.emit()
 	
 func _exit():
 	delete_window.emit(self)
@@ -116,10 +130,16 @@ func _process(delta: float) -> void:
 func _on_delete_pressed() -> void:
 	if deletable:
 		_exit()
+	else:
+		set_to_prohibit.emit()
+		prohibit_timer.start(1)
 	
 func _on_minimize_pressed() -> void:
 	if minimizable:
 		minimize_window.emit(self)
+	else:
+		set_to_prohibit.emit()
+		prohibit_timer.start(1)
 
 func _maximize():
 	self.position = saved_position + Vector2(0,200)

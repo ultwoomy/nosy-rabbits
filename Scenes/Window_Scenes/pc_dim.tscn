@@ -1,0 +1,236 @@
+[gd_scene load_steps=8 format=3 uid="uid://238igta652nr"]
+
+[ext_resource type="Script" path="res://Scripts/Window/pc_dim.gd" id="1_f5je0"]
+[ext_resource type="Texture2D" uid="uid://bw4q0a1v3tt85" path="res://Sprites/Rectangular_Window.png" id="2_k4ar6"]
+[ext_resource type="Theme" uid="uid://danre0tbddxgh" path="res://Sprites/global_theme.tres" id="2_opoux"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="3_ropbo"]
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="4_axmm8"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="5_faqbn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj2qc"]
+size = Vector2(121, 94)
+
+[node name="PcDim" type="Node2D"]
+script = ExtResource("1_f5je0")
+
+[node name="Back" type="NinePatchRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+offset_left = -50.0
+offset_top = -6.0
+offset_right = 71.0
+offset_bottom = 100.0
+theme = ExtResource("2_opoux")
+texture = ExtResource("2_k4ar6")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 32
+patch_margin_bottom = 10
+
+[node name="Label" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 121.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = " Producers   Cost    Buy"
+vertical_alignment = 1
+
+[node name="Points" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 11.0
+offset_right = 121.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1stDims" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 38.0
+offset_right = 121.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = " 0"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Back/1stDims"]
+layout_mode = 0
+offset_left = 51.0
+offset_right = 91.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Back/1stDims"]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 115.0
+offset_bottom = 13.0
+
+[node name="2ndDims" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 51.0
+offset_right = 121.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = " 0"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Back/2ndDims"]
+layout_mode = 0
+offset_left = 51.0
+offset_right = 91.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Back/2ndDims"]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 115.0
+offset_bottom = 13.0
+
+[node name="3rdDims" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 121.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = " 0"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Back/3rdDims"]
+layout_mode = 0
+offset_left = 51.0
+offset_right = 91.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Back/3rdDims"]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 115.0
+offset_bottom = 13.0
+
+[node name="4thDims" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 121.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = " 0"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Back/4thDims"]
+layout_mode = 0
+offset_left = 51.0
+offset_right = 91.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Back/4thDims"]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 115.0
+offset_bottom = 13.0
+
+[node name="WinButton" type="Button" parent="Back"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 93.0
+offset_right = 95.0
+offset_bottom = 103.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Win cost: 1e8"
+
+[node name="Uibar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -5.0
+offset_right = 71.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 121.0
+offset_bottom = 10.0
+texture = ExtResource("3_ropbo")
+patch_margin_left = 10
+patch_margin_right = 40
+
+[node name="Minimize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = -1.0
+offset_right = 100.0
+offset_bottom = 9.0
+texture_normal = ExtResource("4_axmm8")
+texture_pressed = ExtResource("4_axmm8")
+texture_hover = ExtResource("4_axmm8")
+texture_disabled = ExtResource("4_axmm8")
+texture_focused = ExtResource("4_axmm8")
+
+[node name="Delete" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = -1.0
+offset_right = 120.0
+offset_bottom = 9.0
+texture_normal = ExtResource("4_axmm8")
+texture_pressed = ExtResource("4_axmm8")
+texture_hover = ExtResource("4_axmm8")
+texture_disabled = ExtResource("4_axmm8")
+texture_focused = ExtResource("4_axmm8")
+
+[node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = -1.0
+offset_right = 110.0
+offset_bottom = 9.0
+texture_normal = ExtResource("4_axmm8")
+texture_pressed = ExtResource("4_axmm8")
+texture_hover = ExtResource("4_axmm8")
+texture_disabled = ExtResource("4_axmm8")
+texture_focused = ExtResource("4_axmm8")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(10.5, 52)
+shape = SubResource("RectangleShape2D_hj2qc")
+debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(10.5, 52)
+scale = Vector2(1.21, 0.94)
+sprite_frames = ExtResource("5_faqbn")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="pressed" from="Back/1stDims/Button" to="." method="_on_b1_pressed"]
+[connection signal="pressed" from="Back/2ndDims/Button" to="." method="_on_b2_pressed"]
+[connection signal="pressed" from="Back/3rdDims/Button" to="." method="_on_b3_pressed"]
+[connection signal="pressed" from="Back/4thDims/Button" to="." method="_on_b4_pressed"]
+[connection signal="pressed" from="Back/WinButton" to="." method="_on_win_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

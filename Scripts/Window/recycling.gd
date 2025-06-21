@@ -21,6 +21,7 @@ func _pressed_1():
 	if recharge >= 100 and button_choices[0] != null:
 		create_window.emit(button_choices[0].internal_name)
 		exceptions.append(button_choices[0].internal_name)
+		button_choices[0].seen = true
 		set_buttons()
 		recharge = 0
 		
@@ -28,6 +29,7 @@ func _pressed_2():
 	if recharge >= 100 and button_choices[1] != null:
 		create_window.emit(button_choices[1].internal_name)
 		exceptions.append(button_choices[1].internal_name)
+		button_choices[1].seen = true
 		set_buttons()
 		recharge = 0
 		
@@ -35,6 +37,7 @@ func _pressed_3():
 	if recharge >= 100 and button_choices[2] != null:
 		create_window.emit(button_choices[2].internal_name)
 		exceptions.append(button_choices[2].internal_name)
+		button_choices[2].seen = true
 		set_buttons()
 		recharge = 0
 	
@@ -56,9 +59,6 @@ func roll_window():
 		return null
 	while exceptions.has(copy_windows[roll].internal_name) or temp_exceptions.has(copy_windows[roll].internal_name):
 		roll += 1
-	print(exceptions)
-	print(temp_exceptions)
-	print(" ")
 	return copy_windows[roll]
 	
 func set_buttons():

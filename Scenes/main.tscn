@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjym8bos6s3mo"]
+[gd_scene load_steps=12 format=3 uid="uid://bjym8bos6s3mo"]
 
 [ext_resource type="Texture2D" uid="uid://bhy67l0mrje6i" path="res://Sprites/Desktop_Background.png" id="1_775fa"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_evxqj"]
@@ -9,14 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://dkrgpw5xmop3k" path="res://Sprites/PC_Outline1.png" id="6_gm566"]
 [ext_resource type="Script" path="res://Scripts/size_change_detector.gd" id="6_hyjl6"]
 [ext_resource type="Texture2D" uid="uid://htbew21vq45r" path="res://Sprites/Notepad_Icon.png" id="8_hwp1v"]
-[ext_resource type="Texture2D" uid="uid://bsjt1jgm8u7v3" path="res://Sprites/Mouse Icons/Size1/Hand.png" id="10_et0gr"]
+[ext_resource type="Texture2D" uid="uid://bmafa0t315bx5" path="res://Sprites/underbar.png" id="10_sx8sy"]
+[ext_resource type="Texture2D" uid="uid://baayqxjbk7n1y" path="res://Sprites/overbar.png" id="11_6rpak"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_evxqj")
 
 [node name="DesktopBackground" type="Sprite2D" parent="."]
-position = Vector2(161.5, 76.5)
-scale = Vector2(1.5, 1.5)
+position = Vector2(159.5, 81.5)
+scale = Vector2(1.40417, 1.13125)
 texture = ExtResource("1_775fa")
 
 [node name="Rabbit" parent="." instance=ExtResource("1_rlf78")]
@@ -45,6 +46,7 @@ window_manager = NodePath("../Window_Manager")
 script = ExtResource("6_hyjl6")
 
 [node name="PcOutline1" type="NinePatchRect" parent="."]
+z_index = 101
 offset_left = -5.0
 offset_top = -5.0
 offset_right = 325.0
@@ -66,7 +68,20 @@ texture_hover = ExtResource("8_hwp1v")
 texture_disabled = ExtResource("8_hwp1v")
 texture_focused = ExtResource("8_hwp1v")
 
-[node name="Arrow" type="Sprite2D" parent="."]
-texture = ExtResource("10_et0gr")
+[node name="HpBar" type="TextureProgressBar" parent="."]
+offset_left = 50.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 30.0
+texture_under = ExtResource("10_sx8sy")
+texture_progress = ExtResource("11_6rpak")
 
+[node name="Power" type="Button" parent="."]
+offset_left = 2.0
+offset_top = 136.0
+offset_right = 29.0
+offset_bottom = 154.0
+
+[connection signal="_add_recycle_bin" from="RecyclingBin" to="." method="_on_recycling_bin"]
 [connection signal="pressed" from="NotepadIcon" to="." method="_on_notepad_icon_pressed"]
+[connection signal="pressed" from="Power" to="Window_Manager" method="_on_power_pressed"]

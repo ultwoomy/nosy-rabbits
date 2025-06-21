@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://67essuufmrk0"]
+
+[ext_resource type="Script" path="res://Scripts/Window/pc_weather.gd" id="1_irt44"]
+[ext_resource type="Texture2D" uid="uid://bw4q0a1v3tt85" path="res://Sprites/Rectangular_Window.png" id="2_pnv0o"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="3_yw5dj"]
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="4_7c21e"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="5_trpkf"]
+[ext_resource type="Theme" uid="uid://danre0tbddxgh" path="res://Sprites/global_theme.tres" id="6_hyral"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mm53"]
+size = Vector2(140, 99)
+
+[node name="PcWeather" type="Node2D"]
+script = ExtResource("1_irt44")
+
+[node name="Back" type="NinePatchRect" parent="."]
+offset_left = -50.0
+offset_top = -6.0
+offset_right = 92.0
+offset_bottom = 105.0
+texture = ExtResource("2_pnv0o")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 32
+patch_margin_bottom = 10
+
+[node name="Uibar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -5.0
+offset_right = 91.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 142.0
+offset_bottom = 10.0
+texture = ExtResource("3_yw5dj")
+patch_margin_left = 10
+patch_margin_right = 40
+
+[node name="Minimize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = -1.0
+offset_right = 121.0
+offset_bottom = 9.0
+texture_normal = ExtResource("4_7c21e")
+texture_pressed = ExtResource("4_7c21e")
+texture_hover = ExtResource("4_7c21e")
+texture_disabled = ExtResource("4_7c21e")
+texture_focused = ExtResource("4_7c21e")
+
+[node name="Delete" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 131.0
+offset_top = -1.0
+offset_right = 141.0
+offset_bottom = 9.0
+texture_normal = ExtResource("4_7c21e")
+texture_pressed = ExtResource("4_7c21e")
+texture_hover = ExtResource("4_7c21e")
+texture_disabled = ExtResource("4_7c21e")
+texture_focused = ExtResource("4_7c21e")
+
+[node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 121.0
+offset_top = -1.0
+offset_right = 131.0
+offset_bottom = 9.0
+texture_normal = ExtResource("4_7c21e")
+texture_pressed = ExtResource("4_7c21e")
+texture_hover = ExtResource("4_7c21e")
+texture_disabled = ExtResource("4_7c21e")
+texture_focused = ExtResource("4_7c21e")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(21, 53)
+shape = SubResource("RectangleShape2D_0mm53")
+debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(20.5, 54.5)
+scale = Vector2(1.41, 0.99)
+sprite_frames = ExtResource("5_trpkf")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -49.0
+offset_top = 19.0
+offset_right = 91.0
+offset_bottom = 83.0
+theme = ExtResource("6_hyral")
+text = "Tonight's weather is...
+Budget Cuts
+
+Sorry"
+horizontal_alignment = 1

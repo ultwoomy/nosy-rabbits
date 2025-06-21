@@ -12,5 +12,5 @@ func _tick():
 	pass
 
 func update(delta: float):
-	if (rabbit.position.y + rabbit.direction * rabbit.speed > 5) and (rabbit.position.y + rabbit.direction * rabbit.speed < 155):
+	if (rabbit.position.y + rabbit.direction * rabbit.speed > 15) and (rabbit.position.y + rabbit.direction * rabbit.speed < 135):
 		rabbit.position.y += rabbit.direction * rabbit.speed

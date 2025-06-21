@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmcalfqphlm5p"]
+[gd_scene load_steps=10 format=3 uid="uid://bmcalfqphlm5p"]
 
 [ext_resource type="Script" path="res://Scripts/Window/recycling.gd" id="1_vysgj"]
 [ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="2_a63x3"]
@@ -8,9 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cdkgaixrow56h" path="res://Sprites/long_grey_square.png" id="4_32huq"]
 [ext_resource type="Texture2D" uid="uid://b1lx6v18aba7w" path="res://Sprites/long_grey_dark_square.png" id="5_cudta"]
 [ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="6_d4wyh"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aveyb"]
-size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dy5lh"]
 size = Vector2(144, 99)
@@ -70,11 +67,17 @@ texture_hover = ExtResource("2_a63x3")
 texture_disabled = ExtResource("2_a63x3")
 texture_focused = ExtResource("2_a63x3")
 
-[node name="Maximize_Prevention" type="Area2D" parent="Uibar"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Uibar/Maximize_Prevention"]
-position = Vector2(131, 4)
-shape = SubResource("RectangleShape2D_aveyb")
+[node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = -1.0
+offset_right = 136.0
+offset_bottom = 9.0
+texture_normal = ExtResource("2_a63x3")
+texture_pressed = ExtResource("2_a63x3")
+texture_hover = ExtResource("2_a63x3")
+texture_disabled = ExtResource("2_a63x3")
+texture_focused = ExtResource("2_a63x3")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 2

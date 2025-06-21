@@ -37,7 +37,8 @@ func _add_window(id : String):
 	if new_scene is Png_Carrot:
 		for child in rabbits:
 			child.charmed = new_scene
-		
+	if new_scene is Pc_Dim:
+		new_scene.dimension_won.connect(self.create_infinity)
 	new_scene.position = Vector2(100,100)
 	new_scene.minimize_window.connect(_minimize_window)
 	new_scene.minimize_completed.connect(_complete_minimization)
@@ -51,12 +52,13 @@ func _add_window(id : String):
 	
 	
 func _add_window_maximize(ref):
-	add_child(ref)
-	ref.show()
-	ref._maximize()
+	if ref != null:
+		add_child(ref)
+		ref.show()
+		ref._maximize()
 
 func _minimize_window(ref : Base_Window):
-	if desktop_bar.minimized_windows.size() < 4:
+	if desktop_bar.num_windows < 5:
 		ref.minimizing = true
 		ref.saved_position = ref.position
 			
@@ -77,6 +79,7 @@ func _on_window_delete(ref : Base_Window):
 			child.charmed = null
 	if ref is Tutorial:
 		tutorial_closed.emit(ref.get_hp())
+	recycling_bin.exceptions
 	ref.queue_free()
 
 func _create_recycling_bin():
@@ -105,10 +108,39 @@ func set_point():
 	
 func set_x():
 	Input.set_custom_mouse_cursor(deny_cursor, Input.CURSOR_ARROW, Vector2(cursor_size/2, cursor_size/2))
+	print("sx")
 
 func set_cursor_size(screen_size):
-	if screen_size.y <= 160:
+	print(screen_size.y)
+	if screen_size.y > 1280:
+		hand_cursor = load("res://Sprites/Mouse Icons/Size2/Hand.png")
+		point_cursor = load("res://Sprites/Mouse Icons/Size2/Pointer.png")
+		deny_cursor = load("res://Sprites/Mouse Icons/Size2/Prohibited.png")
+		cursor_size = 64
+		set_point()
+	else:
 		hand_cursor = load("res://Sprites/Mouse Icons/Size1/Hand.png")
 		point_cursor = load("res://Sprites/Mouse Icons/Size1/Pointer.png")
 		deny_cursor = load("res://Sprites/Mouse Icons/Size1/Prohibited.png")
 		cursor_size = 8
+		set_point()
+		
+func get_random_child():
+	var place = randi_range(0,get_child_count())
+	var index = 0
+	for child in get_children():
+		if index == place:
+			print(child)
+			return child
+		else:
+			index += 1
+			
+	return null
+	
+func create_infinity():
+	_add_window("png_infinity")
+
+
+func _on_power_pressed() -> void:
+	for child in get_children():
+		pass

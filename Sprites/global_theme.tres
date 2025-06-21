@@ -1,6 +1,16 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://danre0tbddxgh"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://danre0tbddxgh"]
 
 [ext_resource type="FontFile" uid="uid://ccp7qu1j2fr0g" path="res://Fonts/BPdotsUnicaseSquareBold.otf" id="1_81xcc"]
+[ext_resource type="Texture2D" uid="uid://bsjt1jgm8u7v3" path="res://Sprites/Mouse Icons/Size1/Hand.png" id="1_s131d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jnrx"]
+bg_color = Color(0.627516, 0.492026, 0.761227, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oeaip"]
+bg_color = Color(0.657151, 0.5721, 0.734059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_350os"]
+bg_color = Color(0.256537, 0.165727, 0.311278, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2hf1"]
 bg_color = Color(0.0987284, 0.0987284, 0.0987283, 1)
@@ -8,5 +18,15 @@ bg_color = Color(0.0987284, 0.0987284, 0.0987283, 1)
 [resource]
 default_font = ExtResource("1_81xcc")
 default_font_size = 8
+Button/styles/focus = SubResource("StyleBoxFlat_1jnrx")
+Button/styles/hover = SubResource("StyleBoxFlat_1jnrx")
+Button/styles/normal = SubResource("StyleBoxFlat_oeaip")
+Button/styles/pressed = SubResource("StyleBoxFlat_1jnrx")
+HSlider/icons/grabber = ExtResource("1_s131d")
+HSlider/icons/grabber_disabled = ExtResource("1_s131d")
+HSlider/icons/grabber_highlight = ExtResource("1_s131d")
+HSlider/icons/tick = ExtResource("1_s131d")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_350os")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_350os")
 Label/colors/font_color = Color(0, 0, 0, 1)
 Panel/styles/panel = SubResource("StyleBoxFlat_t2hf1")

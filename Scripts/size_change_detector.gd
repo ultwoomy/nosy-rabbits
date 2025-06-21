@@ -8,6 +8,7 @@ func _ready()->void:
 	$"/root".set_script(load("res://Scripts/rw.gd"))
 	var vwindow:Window = get_window()
 	vwindow.size_changed.connect(on_size_changed)
+	on_size_changed()
 
 
 func _notification(pwhat:int)->void:

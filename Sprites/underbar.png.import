@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qppdaf1388so"
-path="res://.godot/imported/Loading.png-427e411436b8b004b15a908ae7ddad97.ctex"
+uid="uid://bmafa0t315bx5"
+path="res://.godot/imported/underbar.png-1e9d500e7e0246eb09d3034444142d58.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Mouse Icons/Size1/Loading.png"
-dest_files=["res://.godot/imported/Loading.png-427e411436b8b004b15a908ae7ddad97.ctex"]
+source_file="res://Sprites/underbar.png"
+dest_files=["res://.godot/imported/underbar.png-1e9d500e7e0246eb09d3034444142d58.ctex"]
 
 [params]
 

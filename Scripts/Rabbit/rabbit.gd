@@ -3,7 +3,9 @@ class_name Rabbit
 @export var interval : float
 var time_active : int
 var direction : int = 1
+var active = false
 var charmed : Base_Window = null
+var charge : int = 0
 @export var speed : float
 # Damage being 1 will not deal any damage, should become 2 when tutorial finishes
 @export var damage : int = 1
@@ -13,12 +15,17 @@ var charmed : Base_Window = null
 @onready var smanager : State_Manager = $State_Manager
 @onready var hitbox : Area2D = $RBox
 var rng = RandomNumberGenerator.new()
+signal born
 
-enum STATES {IDLE,LEFT,RIGHT,UP,DOWN,RETURN}
-var state : STATES = STATES.IDLE:
+enum STATES {IDLE,LEFT,RIGHT,UP,DOWN,RETURN,REST,LASER}
+var state : STATES = STATES.REST:
 	set(val):
 		state = val
 		match state:
+			STATES.LASER:
+				smanager.current_state.transitioned.emit("LASER_STATE")
+			STATES.REST:
+				smanager.current_state.transitioned.emit("REST_STATE")
 			STATES.IDLE:
 				smanager.current_state.transitioned.emit("IDLE_STATE")
 			STATES.LEFT:
@@ -39,10 +46,21 @@ func _ready() -> void:
 	timer.timeout.connect(self._tick)
 	timer.start()
 
+func _activate():
+	active = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _tick():
 	time_active += 1
+	if time_active > 30:
+		charge += 1
+	if charge > 120:
+		var new_rabbit = load("res://Scenes/rabbit.tscn").instantiate()
+		get_parent().add_child(new_rabbit)
+		get_parent().rabbits.append(new_rabbit)
+		new_rabbit.position = self.position
+		charge = 0
+		born.emit()
 	_check_action()
 	
 func _check_action():
@@ -50,9 +68,15 @@ func _check_action():
 	var decision_made = false
 	hitbox.damage = damage
 	var roll = randi_range(0,20)
-	if state == STATES.RETURN:
+	
+	if not active:
+		next_state = STATES.REST
+		decision_made = true
+
+	if state == STATES.RETURN and not decision_made:
 		next_state = STATES.IDLE
 		decision_made = true
+		
 		
 	if roll <= ai and not decision_made:
 		if charmed != null:
@@ -103,12 +127,13 @@ func _check_hitbox():
 
 func _process(delta: float) -> void:
 	var overlap = hitbox.get_overlapping_areas()
-	if overlap.is_empty():
-		Gvars.player_hp -= damage
-	if hitbox.has_overlapping_areas():
-		var windows = hitbox.get_overlapping_areas()
-		var shots_fired = false
-		for w in windows:
-			if w.get_parent() is Base_Window and not shots_fired:
-				w.get_parent()._take_damage(damage)
-				shots_fired = true
+	if state == STATES.IDLE:
+		if overlap.is_empty():
+			Gvars.player_hp -= damage * 2
+		elif hitbox.has_overlapping_areas():
+			var windows = hitbox.get_overlapping_areas()
+			var shots_fired = false
+			for w in windows:
+				if w.get_parent() is Base_Window and not shots_fired:
+					w.get_parent()._take_damage(damage)
+					shots_fired = true
