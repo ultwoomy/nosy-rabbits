@@ -1,0 +1,125 @@
+[gd_scene load_steps=9 format=3 uid="uid://c17bdqtapfitx"]
+
+[ext_resource type="Script" path="res://Scripts/Window/mute.gd" id="1_qk400"]
+[ext_resource type="Theme" uid="uid://danre0tbddxgh" path="res://Sprites/global_theme.tres" id="2_rjl6u"]
+[ext_resource type="Texture2D" uid="uid://bw4q0a1v3tt85" path="res://Sprites/Rectangular_Window.png" id="3_w1ahb"]
+[ext_resource type="Texture2D" uid="uid://bmiwf3duovxi3" path="res://Sprites/Rect_Bar.png" id="4_sbu7t"]
+[ext_resource type="Texture2D" uid="uid://hyxvwhk3vtw7" path="res://Sprites/small_grey_square.png" id="5_lcel6"]
+[ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="6_xwfgf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cris6"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qjqh"]
+size = Vector2(74, 67)
+
+[node name="Mute" type="Node2D"]
+script = ExtResource("1_qk400")
+
+[node name="Back" type="NinePatchRect" parent="."]
+offset_left = -50.0
+offset_top = -6.0
+offset_right = 24.0
+offset_bottom = 62.0
+theme = ExtResource("2_rjl6u")
+texture = ExtResource("3_w1ahb")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 32
+patch_margin_bottom = 10
+
+[node name="Label" type="Label" parent="Back"]
+layout_mode = 0
+offset_top = 19.0
+offset_right = 73.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 14
+text = "Mute?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="."]
+offset_left = -23.0
+offset_top = 30.0
+offset_right = -7.0
+offset_bottom = 54.0
+theme = ExtResource("2_rjl6u")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cris6")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_cris6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cris6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cris6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cris6")
+
+[node name="Uibar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -5.0
+offset_right = 23.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Draggable_Bar" type="NinePatchRect" parent="Uibar"]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 74.0
+offset_bottom = 10.0
+texture = ExtResource("4_sbu7t")
+patch_margin_left = 10
+patch_margin_right = 40
+
+[node name="Minimize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = -1.0
+offset_right = 53.0
+offset_bottom = 9.0
+texture_normal = ExtResource("5_lcel6")
+texture_pressed = ExtResource("5_lcel6")
+texture_hover = ExtResource("5_lcel6")
+texture_disabled = ExtResource("5_lcel6")
+texture_focused = ExtResource("5_lcel6")
+
+[node name="Delete" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = -1.0
+offset_right = 73.0
+offset_bottom = 9.0
+texture_normal = ExtResource("5_lcel6")
+texture_pressed = ExtResource("5_lcel6")
+texture_hover = ExtResource("5_lcel6")
+texture_disabled = ExtResource("5_lcel6")
+texture_focused = ExtResource("5_lcel6")
+
+[node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = -1.0
+offset_right = 63.0
+offset_bottom = 9.0
+texture_normal = ExtResource("5_lcel6")
+texture_pressed = ExtResource("5_lcel6")
+texture_hover = ExtResource("5_lcel6")
+texture_disabled = ExtResource("5_lcel6")
+texture_focused = ExtResource("5_lcel6")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-13, 28.5)
+shape = SubResource("RectangleShape2D_4qjqh")
+debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
+
+[node name="Damage" type="AnimatedSprite2D" parent="."]
+position = Vector2(-13, 33.5)
+scale = Vector2(0.74, 0.57)
+sprite_frames = ExtResource("6_xwfgf")
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]

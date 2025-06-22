@@ -67,6 +67,7 @@ texture_disabled = ExtResource("4_3s8qh")
 texture_focused = ExtResource("4_3s8qh")
 
 [node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
 offset_left = 39.0
 offset_right = 49.0
 offset_bottom = 10.0
@@ -82,7 +83,7 @@ collision_layer = 2
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
 position = Vector2(-18, 40)
 scale = Vector2(3.48295, 4.08173)
-polygon = PackedVector2Array(-8.90049, 10.0448, -8.90049, -8.57479, 7.75204, -8.57479, 7.75204, 10.0448, 2.58401, 10.0448, 2.2969, -2.69494, -3.44535, -2.69494, -3.73246, 10.0448)
+polygon = PackedVector2Array(-8.90049, 10.0448, -8.9005, -11.2697, 7.75205, -11.2697, 7.75204, 10.0448, 2.58401, 10.0448, 2.2969, -2.69494, -3.44535, -2.69494, -3.73246, 10.0448)
 
 [node name="Damage" type="AnimatedSprite2D" parent="."]
 position = Vector2(-20, 43)

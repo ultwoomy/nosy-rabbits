@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://danre0tbddxgh" path="res://Sprites/global_theme.tres" id="6_w3urt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knsnn"]
-size = Vector2(103, 85)
+size = Vector2(103, 95)
 
 [node name="PcRepair" type="Node2D" node_paths=PackedStringArray("status")]
 script = ExtResource("1_sneua")
@@ -78,6 +78,7 @@ texture_disabled = ExtResource("4_1wdsq")
 texture_focused = ExtResource("4_1wdsq")
 
 [node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
 offset_left = 84.0
 offset_top = -1.0
 offset_right = 94.0
@@ -92,7 +93,7 @@ texture_focused = ExtResource("4_1wdsq")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(2.5, 46.5)
+position = Vector2(2.5, 41.5)
 shape = SubResource("RectangleShape2D_knsnn")
 
 [node name="Damage" type="AnimatedSprite2D" parent="."]

@@ -7,7 +7,8 @@ var rng = RandomNumberGenerator.new()
 func _ready() -> void:
 	deletable = false
 	minimizable = false
-	_set_hp(999)
+	draggable = false
+	_set_hp(9999)
 
 func _on_timer_timeout() -> void:
 	if sprite.frame == 0:
@@ -24,3 +25,9 @@ func _on_minimize_pressed() -> void:
 	var pos = Vector2(randi_range(10,300),randi_range(10,130))
 	self.position = pos
 	super()
+
+func _process(delta: float) -> void:
+	if(mouse_down and in_drag_bar):
+		var pos = Vector2(randi_range(10,300),randi_range(10,130))
+		self.position = pos
+	super(delta)

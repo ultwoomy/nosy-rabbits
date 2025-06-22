@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://smkbd5ub6huh" path="res://Sprites/Cat_Ad.png" id="4_p61or"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kn32f"]
-size = Vector2(100, 56)
+size = Vector2(100, 67)
 
 [node name="PngCat" type="Node2D"]
 position = Vector2(4, 4)
@@ -61,6 +61,7 @@ texture_disabled = ExtResource("2_b3fke")
 texture_focused = ExtResource("2_b3fke")
 
 [node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
 offset_left = 79.0
 offset_right = 89.0
 offset_bottom = 10.0
@@ -74,7 +75,7 @@ texture_focused = ExtResource("2_b3fke")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 33)
+position = Vector2(0, 27.5)
 shape = SubResource("RectangleShape2D_kn32f")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 

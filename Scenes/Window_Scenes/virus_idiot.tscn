@@ -8,7 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="5_tpbpp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urui0"]
-size = Vector2(90, 60)
+size = Vector2(90, 71)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rlo4l"]
 animations = [{
@@ -77,6 +77,7 @@ texture_disabled = ExtResource("2_tvy30")
 texture_focused = ExtResource("2_tvy30")
 
 [node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
 offset_left = 69.0
 offset_top = -1.0
 offset_right = 79.0
@@ -91,7 +92,7 @@ texture_focused = ExtResource("2_tvy30")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-5, 35)
+position = Vector2(-5, 29.5)
 shape = SubResource("RectangleShape2D_urui0")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 

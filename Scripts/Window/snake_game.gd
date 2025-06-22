@@ -51,6 +51,7 @@ func move_snake():
   
 	if snake_head_position == apple_position:
 		snake_length += 1
+		speed += 0.02
 	# Generate new apple position
 		while apple_position == snake_head_position or apple_position in snake_body:
 			apple_position = Vector2(randi_range(0, 15), randi_range(0, 15))

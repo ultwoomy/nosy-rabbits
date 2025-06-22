@@ -1,8 +1,10 @@
 extends Node
-@export var player_hp = 1200
-@export var player_hp_max = 1200
+@export var player_hp = 1800
+@export var player_hp_max = 1800
 @export var player_regen = 1
 @export var volume : float = 0
+@export var saved_volume : float = 0
+var phase = 0
 var code = [0,0,0,0]
 var time_lived : int = 0
 var window_pool : Array = []
@@ -10,10 +12,12 @@ var score = 0
 var win_status = "na"
 
 func _reset_hp():
-	player_hp = 1200
-	player_hp_max = 1200
+	player_hp = 1800
+	player_hp_max = 1800
 	player_regen = 1
 	score = 0
+	phase = 0
+	win_status = "na"
 	var i = 0
 	while i < 4:
 		code[i] = randi_range(0,9)
@@ -21,7 +25,7 @@ func _reset_hp():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-		
+	saved_volume = volume
 	if not window_pool.is_empty():
 		window_pool.clear()
 	_reset_hp()
@@ -40,7 +44,7 @@ func _ready() -> void:
 	temp = File_Extension.new()
 	temp.file_name = "nv2iu34589f.exe"
 	temp.internal_name = "virus_idiot"
-	temp.desc = "Nostalgic virus. Can be used to block the rabbits, but can't be deleted or minimized."
+	temp.desc = "Nostalgic virus. Can be used to block the rabbits and is very tanky, but teleports instead of moving."
 	window_pool.append(temp)
 	
 	temp = File_Extension.new()
@@ -56,7 +60,7 @@ func _ready() -> void:
 	window_pool.append(temp)
 	
 	temp = File_Extension.new()
-	temp.file_name = "groblin.png"
+	temp.file_name = "slant.png"
 	temp.internal_name = "png_groblin"
 	temp.desc = "It's kinda sideways"
 	window_pool.append(temp)
@@ -121,6 +125,17 @@ func _ready() -> void:
 	temp.desc = "The fourth number to the passcode that opens up when you hit power. Only shows up when most other windows are restored."
 	window_pool.append(temp)
 
+	temp = File_Extension.new()
+	temp.file_name = "keyshardFAKE.txt"
+	temp.internal_name = "key_shardfake"
+	temp.desc = "A deceptive keyshard planted to make the player forget the code. Much tankier than the others."
+	window_pool.append(temp)
+
+	temp = File_Extension.new()
+	temp.file_name = "dvd_saver.png"
+	temp.internal_name = "png_dvdsaver"
+	temp.desc = "Bounces around the screen being of no help to anyone."
+	window_pool.append(temp)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjym8bos6s3mo"]
+[gd_scene load_steps=15 format=3 uid="uid://bjym8bos6s3mo"]
 
 [ext_resource type="Texture2D" uid="uid://bhy67l0mrje6i" path="res://Sprites/Desktop_Background.png" id="1_775fa"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_evxqj"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://baayqxjbk7n1y" path="res://Sprites/overbar.png" id="11_6rpak"]
 [ext_resource type="Texture2D" uid="uid://b14xt22mwytxw" path="res://Sprites/arrow.png" id="12_6b1ty"]
 [ext_resource type="AudioStream" uid="uid://8uk2xys5f8wi" path="res://Scenes/Sounds/music.ogg" id="13_5a4h1"]
+[ext_resource type="Texture2D" uid="uid://cx8mcewotf5wl" path="res://Sprites/Help_Icon.png" id="14_0xuam"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_evxqj")
@@ -98,7 +99,21 @@ texture = ExtResource("12_6b1ty")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_5a4h1")
 
+[node name="QMark" type="TextureButton" parent="."]
+offset_left = 303.0
+offset_top = 8.0
+offset_right = 314.0
+offset_bottom = 24.0
+texture_normal = ExtResource("14_0xuam")
+texture_pressed = ExtResource("14_0xuam")
+texture_hover = ExtResource("14_0xuam")
+texture_disabled = ExtResource("14_0xuam")
+texture_focused = ExtResource("14_0xuam")
+
 [connection signal="_add_recycle_bin" from="RecyclingBin" to="." method="_on_recycling_bin"]
 [connection signal="pressed" from="NotepadIcon" to="." method="_on_notepad_icon_pressed"]
 [connection signal="pressed" from="Power" to="Window_Manager" method="_on_power_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="pressed" from="QMark" to="." method="_on_q_mark_pressed"]
+[connection signal="pressed" from="QMark" to="Window_Manager" method="_on_q_mark_pressed"]

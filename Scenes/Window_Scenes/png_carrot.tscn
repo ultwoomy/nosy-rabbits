@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bj56qy7vr5r7r" path="res://Sprites/Carrot_Ad.png" id="4_5pnks"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmxtc"]
-size = Vector2(100, 56)
+size = Vector2(100, 67)
 
 [node name="PngCarrot" type="Node2D"]
 script = ExtResource("1_w5vxm")
@@ -75,7 +75,7 @@ texture_focused = ExtResource("2_wclmp")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 33)
+position = Vector2(0, 27.5)
 shape = SubResource("RectangleShape2D_cmxtc")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 

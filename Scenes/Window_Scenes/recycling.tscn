@@ -10,7 +10,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="6_d4wyh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dy5lh"]
-size = Vector2(144, 99)
+size = Vector2(144, 108.5)
 
 [node name="Recycling" type="Node2D"]
 script = ExtResource("1_vysgj")
@@ -83,7 +83,7 @@ texture_focused = ExtResource("2_a63x3")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(23, 53)
+position = Vector2(23, 48.25)
 shape = SubResource("RectangleShape2D_dy5lh")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 
@@ -91,7 +91,8 @@ debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 layout_mode = 3
 anchors_preset = 0
 offset_left = -50.0
-offset_top = -5.0
+offset_right = -50.0
+mouse_filter = 2
 theme = ExtResource("3_k81pc")
 
 [node name="Label" type="Label" parent="Control"]

@@ -33,9 +33,9 @@ func set_x():
 func set_cursor_size(screen_size):
 	print(screen_size.y)
 	if screen_size.y >= 1280:
-		hand_cursor = load("res://Sprites/Mouse Icons/Size3/Hand.png")
-		point_cursor = load("res://Sprites/Mouse Icons/Size3/Pointer.png")
-		deny_cursor = load("res://Sprites/Mouse Icons/Size3/Prohibited.png")
+		hand_cursor = load("res://Sprites/Mouse Icons/Size2/Hand.png")
+		point_cursor = load("res://Sprites/Mouse Icons/Size2/Pointer.png")
+		deny_cursor = load("res://Sprites/Mouse Icons/Size2/Prohibited.png")
 		cursor_size = 64
 		set_point()
 	elif screen_size.y >= 640:

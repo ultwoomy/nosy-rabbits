@@ -10,7 +10,8 @@ func _ready() -> void:
 
 
 func _on_timer_timeout() -> void:
-	time_left -= 1
+	if get_parent() is Window_Manager:
+		time_left -= 1
 	text.text = "Ad ends in: " + str(time_left)
-	if time_left == 0:
+	if time_left <= 0:
 		_exit()

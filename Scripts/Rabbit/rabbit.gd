@@ -91,7 +91,8 @@ func _check_action():
 				decision_made = false
 			else:
 				decision_made = true
-		next_state = STATES.RETURN
+		if state != STATES.IDLE:
+			next_state = STATES.RETURN
 		
 	if charmed != null and not decision_made:
 		decision_made = true
@@ -140,7 +141,7 @@ func _process(delta: float) -> void:
 	var overlap = hitbox.get_overlapping_areas()
 	if state == STATES.IDLE:
 		if overlap.is_empty():
-			Gvars.player_hp -= damage * 2
+			Gvars.player_hp -= damage + 1
 		elif hitbox.has_overlapping_areas():
 			var windows = hitbox.get_overlapping_areas()
 			var shots_fired = false

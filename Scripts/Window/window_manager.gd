@@ -40,6 +40,8 @@ func _add_window(id : String):
 			child.charmed = new_scene
 	if new_scene is Pc_Dim:
 		new_scene.dimension_won.connect(self.create_infinity)
+	if new_scene is Key_Shard4 and Gvars.phase == 3:
+		Gvars.phase = 4
 	new_scene.position = Vector2(100,100)
 	new_scene.minimize_window.connect(_minimize_window)
 	new_scene.minimize_completed.connect(_complete_minimization)
@@ -112,10 +114,10 @@ func set_x():
 
 func set_cursor_size(screen_size):
 	print(screen_size.y)
-	if screen_size.y >= 1280:
-		hand_cursor = load("res://Sprites/Mouse Icons/Size3/Hand.png")
-		point_cursor = load("res://Sprites/Mouse Icons/Size3/Pointer.png")
-		deny_cursor = load("res://Sprites/Mouse Icons/Size3/Prohibited.png")
+	if screen_size.y >= 1400:
+		hand_cursor = load("res://Sprites/Mouse Icons/Size2/Hand.png")
+		point_cursor = load("res://Sprites/Mouse Icons/Size2/Pointer.png")
+		deny_cursor = load("res://Sprites/Mouse Icons/Size2/Prohibited.png")
 		cursor_size = 64
 		set_point()
 	elif screen_size.y >= 640:
@@ -136,7 +138,6 @@ func get_random_child():
 	var index = 0
 	for child in get_children():
 		if index == place:
-			print(child)
 			return child
 		else:
 			index += 1
@@ -149,7 +150,21 @@ func create_infinity():
 
 func _on_power_pressed() -> void:
 	for child in get_children():
-		if child == Key_Lock:
+		if child is Key_Lock:
+			return
+	for child in desktop_bar.get_children():
+		if child is Key_Lock:
 			return
 	_add_window("key_lock")
+	clicked_window.emit()
+
+
+func _on_q_mark_pressed() -> void:
+	for child in get_children():
+		if child is Mute:
+			return
+	for child in desktop_bar.get_children():
+		if child is Mute:
+			return
+	_add_window("mute")
 	clicked_window.emit()

@@ -7,7 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="4_hipiu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nn23i"]
-size = Vector2(96, 85)
+size = Vector2(96, 96)
 
 [node name="PcSnake" type="Node2D"]
 script = ExtResource("1_acncs")
@@ -60,6 +60,7 @@ texture_disabled = ExtResource("2_3hdyu")
 texture_focused = ExtResource("2_3hdyu")
 
 [node name="Maximize" type="TextureButton" parent="Uibar"]
+layout_mode = 0
 offset_left = 75.0
 offset_top = -1.0
 offset_right = 85.0
@@ -74,7 +75,7 @@ texture_focused = ExtResource("2_3hdyu")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-2, 47.5)
+position = Vector2(-2, 42)
 shape = SubResource("RectangleShape2D_nn23i")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 

@@ -11,8 +11,8 @@ var shape : Sprite2D
 var minimized : bool = false
 var minimizable : bool = true
 var draggable : bool = true
-var max_hp : int = 2000
-var hp : int = 2000
+var max_hp : int = 1800
+var hp : int = 1800
 var deletable : bool = true
 var immune : bool = false
 var mouse_down = false

@@ -8,7 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bq4qxl53eom0y" path="res://Sprites/damage_animation.tres" id="5_faqbn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hj2qc"]
-size = Vector2(121, 94)
+size = Vector2(121, 105)
 
 [node name="PcDim" type="Node2D"]
 script = ExtResource("1_f5je0")
@@ -216,7 +216,7 @@ texture_focused = ExtResource("4_axmm8")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(10.5, 52)
+position = Vector2(10.5, 46.5)
 shape = SubResource("RectangleShape2D_hj2qc")
 debug_color = Color(0.521944, 0.534274, 0.578207, 0.42)
 

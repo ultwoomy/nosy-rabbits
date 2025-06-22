@@ -24,6 +24,7 @@ func _pressed_1():
 		button_choices[0].seen = true
 		set_buttons()
 		recharge = 0
+		_check_phase()
 		
 func _pressed_2():
 	if recharge >= 100 and button_choices[1] != null:
@@ -32,6 +33,7 @@ func _pressed_2():
 		button_choices[1].seen = true
 		set_buttons()
 		recharge = 0
+		_check_phase()
 		
 func _pressed_3():
 	if recharge >= 100 and button_choices[2] != null:
@@ -40,7 +42,13 @@ func _pressed_3():
 		button_choices[2].seen = true
 		set_buttons()
 		recharge = 0
+		_check_phase()
 	
+func _check_phase():
+	if Gvars.phase == 1 and exceptions.size() > Gvars.window_pool.size()/3:
+		Gvars.phase += 1
+	if Gvars.phase == 2 and exceptions.size() > 2 * Gvars.window_pool.size()/3:
+		Gvars.phase += 1
 	
 func _process(delta: float) -> void:
 	super(delta)

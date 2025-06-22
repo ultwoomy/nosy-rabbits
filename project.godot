@@ -24,7 +24,6 @@ Gvars="*res://Scripts/gvars.gd"
 window/size/viewport_width=320
 window/size/viewport_height=160
 window/stretch/mode="canvas_items"
-mouse_cursor/custom_image="res://Sprites/Mouse Icons/Size1/Pointer.png"
 
 [input]
 

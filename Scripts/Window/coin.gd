@@ -6,8 +6,8 @@ var coin = 0
 
 # Called when the node enters the scene tree for the first time.
 func _set_hp(coins):
-	max_hp = (coins - 2) * 200
-	hp = (coins - 2) * 200
+	max_hp = (coins - 2) * 300
+	hp = (coins - 2) * 300
 	coin = coins
 
 func _enter():

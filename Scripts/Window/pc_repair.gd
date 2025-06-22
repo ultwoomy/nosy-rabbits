@@ -14,7 +14,6 @@ func _process(delta: float) -> void:
 	if ref != null and healing:
 		if ref.hp < ref.max_hp:
 			ref.hp += 1
-			print(str(ref.hp) + " " + str(ref.max_hp))
 			ref._take_damage(0)
 		else:
 			ref = null
