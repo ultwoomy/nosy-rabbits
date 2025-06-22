@@ -8,6 +8,7 @@ var code = [0,0,0,0]
 
 func _ready() -> void:
 	_set_hp(500)
+	_set_text()
 	
 func _set_text():
 	num1.text = str(code[0])
@@ -55,10 +56,13 @@ func _on_down_arrow_pressed4() -> void:
 
 
 func _on_enter_code_pressed() -> void:
-	var wrong = true
-	for i in code:
-		if i == Gvars.code[i]:
-			wrong = false
-	if not wrong:
-		#Winning sequence
-		pass
+	var right = true
+	var index = 0
+	while index < 4:
+		if code[index] != Gvars.code[index]:
+			right = false
+		index += 1
+	if right:
+		Gvars.win_status = "win"
+		Gvars.player_regen = 999
+		get_tree().change_scene_to_file("res://Scenes/Loss.tscn")

@@ -45,7 +45,7 @@ func _pressed_3():
 func _process(delta: float) -> void:
 	super(delta)
 	if recharge < 100:
-		recharge += 0.2
+		recharge += 0.1
 		prog_bar.show()
 	else:
 		recharge = 100
@@ -55,9 +55,10 @@ func _process(delta: float) -> void:
 func roll_window():
 	copy_windows.shuffle()
 	var roll = 0
+	print(str(Gvars.window_pool.size() - exceptions.size() - temp_exceptions.size()))
 	if exceptions.size() + temp_exceptions.size() >= copy_windows.size():
 		return null
-	while exceptions.has(copy_windows[roll].internal_name) or temp_exceptions.has(copy_windows[roll].internal_name):
+	while exceptions.has(copy_windows[roll].internal_name) or temp_exceptions.has(copy_windows[roll].internal_name) or (copy_windows[roll].internal_name == "key_shard4" and Gvars.window_pool.size() - exceptions.size() - temp_exceptions.size() > 3):
 		roll += 1
 	return copy_windows[roll]
 	

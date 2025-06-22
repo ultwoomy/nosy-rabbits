@@ -14,6 +14,7 @@ var deny_cursor = load("res://Sprites/Mouse Icons/Size1/Prohibited.png")
 
 signal window_minimized(ref)
 signal tutorial_closed(hp)
+signal clicked_window
 
 func _ready() -> void:
 	recycling_bin._add_recycle_bin.connect(self._create_recycling_bin)
@@ -108,15 +109,20 @@ func set_point():
 	
 func set_x():
 	Input.set_custom_mouse_cursor(deny_cursor, Input.CURSOR_ARROW, Vector2(cursor_size/2, cursor_size/2))
-	print("sx")
 
 func set_cursor_size(screen_size):
 	print(screen_size.y)
-	if screen_size.y > 1280:
+	if screen_size.y >= 1280:
+		hand_cursor = load("res://Sprites/Mouse Icons/Size3/Hand.png")
+		point_cursor = load("res://Sprites/Mouse Icons/Size3/Pointer.png")
+		deny_cursor = load("res://Sprites/Mouse Icons/Size3/Prohibited.png")
+		cursor_size = 64
+		set_point()
+	elif screen_size.y >= 640:
 		hand_cursor = load("res://Sprites/Mouse Icons/Size2/Hand.png")
 		point_cursor = load("res://Sprites/Mouse Icons/Size2/Pointer.png")
 		deny_cursor = load("res://Sprites/Mouse Icons/Size2/Prohibited.png")
-		cursor_size = 64
+		cursor_size = 32
 		set_point()
 	else:
 		hand_cursor = load("res://Sprites/Mouse Icons/Size1/Hand.png")
@@ -143,4 +149,7 @@ func create_infinity():
 
 func _on_power_pressed() -> void:
 	for child in get_children():
-		pass
+		if child == Key_Lock:
+			return
+	_add_window("key_lock")
+	clicked_window.emit()

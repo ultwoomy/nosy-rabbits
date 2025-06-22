@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4k5srphs5xsw"
-path="res://.godot/imported/Hand.png-a5d1d730bf15f3750c80ddf3d25b57f5.ctex"
+uid="uid://34fil4puihhx"
+path="res://.godot/imported/hand.png-507969d8a7af2476351be14f67eec3d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Mouse Icons/Size2/Hand.png"
-dest_files=["res://.godot/imported/Hand.png-a5d1d730bf15f3750c80ddf3d25b57f5.ctex"]
+source_file="res://Sprites/Mouse Icons/Size2/hand.png"
+dest_files=["res://.godot/imported/hand.png-507969d8a7af2476351be14f67eec3d8.ctex"]
 
 [params]
 

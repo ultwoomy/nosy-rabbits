@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bg0sh2lkj56ap"
-path="res://.godot/imported/Prohibited.png-3603233f2330a00720dd0fad5d50ef66.ctex"
+uid="uid://t64rc6vhxkbc"
+path="res://.godot/imported/prohibited.png-5b31ac83e38e6658e9833b7d95745e19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Mouse Icons/Size2/Prohibited.png"
-dest_files=["res://.godot/imported/Prohibited.png-3603233f2330a00720dd0fad5d50ef66.ctex"]
+source_file="res://Sprites/Mouse Icons/Size2/prohibited.png"
+dest_files=["res://.godot/imported/prohibited.png-5b31ac83e38e6658e9833b7d95745e19.ctex"]
 
 [params]
 

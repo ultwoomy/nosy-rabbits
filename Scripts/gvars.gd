@@ -1,22 +1,26 @@
 extends Node
-@export var player_hp = 1800
-@export var player_hp_max = 1800
+@export var player_hp = 1200
+@export var player_hp_max = 1200
 @export var player_regen = 1
 @export var volume : float = 0
 var code = [0,0,0,0]
 var time_lived : int = 0
 var window_pool : Array = []
+var score = 0
+var win_status = "na"
 
 func _reset_hp():
-	player_hp = 1800
-	player_hp_max = 1800
+	player_hp = 1200
+	player_hp_max = 1200
 	player_regen = 1
+	score = 0
+	var i = 0
+	while i < 4:
+		code[i] = randi_range(0,9)
+		i += 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var i = 0
-	while i < 5:
-		code[i] = randi_range(0,9)
 		
 	if not window_pool.is_empty():
 		window_pool.clear()
@@ -110,6 +114,12 @@ func _ready() -> void:
 	temp.internal_name = "key_shard3"
 	temp.desc = "The third number to the passcode that opens up when you hit power."
 	window_pool.append(temp)
+	
+	temp = File_Extension.new()
+	temp.file_name = "keyshard4.txt"
+	temp.internal_name = "key_shard4"
+	temp.desc = "The fourth number to the passcode that opens up when you hit power. Only shows up when most other windows are restored."
+	window_pool.append(temp)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -117,5 +127,5 @@ func _process(delta: float) -> void:
 	if player_hp < player_hp_max:
 		player_hp += player_regen
 	if player_hp <= 0:
-		pass
+		win_status = "loss"
 		get_tree().change_scene_to_file("res://Scenes/Loss.tscn")

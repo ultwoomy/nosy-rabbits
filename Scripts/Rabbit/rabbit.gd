@@ -1,16 +1,16 @@
 extends Node
 class_name Rabbit
-@export var interval : float
+@export var interval : float = 3
 var time_active : int
 var direction : int = 1
 var active = false
 var charmed : Base_Window = null
 var charge : int = 0
-@export var speed : float
+@export var speed : float = 0.6
 # Damage being 1 will not deal any damage, should become 2 when tutorial finishes
-@export var damage : int = 1
+@export var damage : int = 2
 @export var ai : int = 10
-@onready var sprite : AnimatedSprite2D = $Rabbit_Sprite
+@export var sprite : AnimatedSprite2D
 @onready var timer : Timer = $Timer
 @onready var smanager : State_Manager = $State_Manager
 @onready var hitbox : Area2D = $RBox
@@ -45,6 +45,7 @@ func _ready() -> void:
 	timer.wait_time = interval
 	timer.timeout.connect(self._tick)
 	timer.start()
+	_check_action()
 
 func _activate():
 	active = true
@@ -52,15 +53,20 @@ func _activate():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _tick():
 	time_active += 1
-	if time_active > 30:
-		charge += 1
-	if charge > 120:
-		var new_rabbit = load("res://Scenes/rabbit.tscn").instantiate()
-		get_parent().add_child(new_rabbit)
-		get_parent().rabbits.append(new_rabbit)
-		new_rabbit.position = self.position
-		charge = 0
-		born.emit()
+	if time_active == 30:
+		interval = 2.5
+	if time_active == 90:
+		interval = 2
+		speed = 0.8
+	if time_active == 120:
+		interval = 1.7
+		speed = 1
+	if time_active == 150:
+		interval = 1.2
+		speed = 1.2
+	if time_active == 180:
+		damage = 3
+		smanager.get_child(1)._change2()
 	_check_action()
 	
 func _check_action():
@@ -122,6 +128,11 @@ func _check_action():
 			
 	state = next_state
 	
+func _override_state(s):
+	if s == "IDLE":
+		state = STATES.IDLE
+		timer.start()
+
 func _check_hitbox():
 	pass
 

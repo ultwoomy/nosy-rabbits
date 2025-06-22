@@ -26,19 +26,23 @@ func set_hand():
 	
 func set_point():
 	Input.set_custom_mouse_cursor(point_cursor, Input.CURSOR_ARROW, Vector2(cursor_size/2, cursor_size/2))
-	print("sp")
 	
 func set_x():
 	Input.set_custom_mouse_cursor(deny_cursor, Input.CURSOR_ARROW, Vector2(cursor_size/2, cursor_size/2))
-	print("sx")
 
 func set_cursor_size(screen_size):
 	print(screen_size.y)
-	if screen_size.y > 1280:
+	if screen_size.y >= 1280:
+		hand_cursor = load("res://Sprites/Mouse Icons/Size3/Hand.png")
+		point_cursor = load("res://Sprites/Mouse Icons/Size3/Pointer.png")
+		deny_cursor = load("res://Sprites/Mouse Icons/Size3/Prohibited.png")
+		cursor_size = 64
+		set_point()
+	elif screen_size.y >= 640:
 		hand_cursor = load("res://Sprites/Mouse Icons/Size2/Hand.png")
 		point_cursor = load("res://Sprites/Mouse Icons/Size2/Pointer.png")
 		deny_cursor = load("res://Sprites/Mouse Icons/Size2/Prohibited.png")
-		cursor_size = 64
+		cursor_size = 32
 		set_point()
 	else:
 		hand_cursor = load("res://Sprites/Mouse Icons/Size1/Hand.png")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjym8bos6s3mo"]
+[gd_scene load_steps=14 format=3 uid="uid://bjym8bos6s3mo"]
 
 [ext_resource type="Texture2D" uid="uid://bhy67l0mrje6i" path="res://Sprites/Desktop_Background.png" id="1_775fa"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_evxqj"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://htbew21vq45r" path="res://Sprites/Notepad_Icon.png" id="8_hwp1v"]
 [ext_resource type="Texture2D" uid="uid://bmafa0t315bx5" path="res://Sprites/underbar.png" id="10_sx8sy"]
 [ext_resource type="Texture2D" uid="uid://baayqxjbk7n1y" path="res://Sprites/overbar.png" id="11_6rpak"]
+[ext_resource type="Texture2D" uid="uid://b14xt22mwytxw" path="res://Sprites/arrow.png" id="12_6b1ty"]
+[ext_resource type="AudioStream" uid="uid://8uk2xys5f8wi" path="res://Scenes/Sounds/music.ogg" id="13_5a4h1"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_evxqj")
@@ -20,12 +22,17 @@ position = Vector2(159.5, 81.5)
 scale = Vector2(1.40417, 1.13125)
 texture = ExtResource("1_775fa")
 
+[node name="HpBar" type="TextureProgressBar" parent="."]
+offset_left = 60.0
+offset_top = 10.0
+offset_right = 260.0
+offset_bottom = 30.0
+mouse_filter = 2
+texture_under = ExtResource("10_sx8sy")
+texture_progress = ExtResource("11_6rpak")
+
 [node name="Rabbit" parent="." instance=ExtResource("1_rlf78")]
 position = Vector2(156, 75)
-scale = Vector2(0.3, 0.3)
-interval = 2.0
-speed = 0.3
-damage = 2
 
 [node name="Window_Manager" type="Node" parent="." node_paths=PackedStringArray("desktop_bar", "recycling_bin", "rabbits", "size_change", "notepad_icon")]
 script = ExtResource("2_y45lw")
@@ -35,8 +42,9 @@ rabbits = [NodePath("../Rabbit")]
 size_change = NodePath("../Size_Change")
 notepad_icon = NodePath("../NotepadIcon")
 
-[node name="RecyclingBin" parent="." instance=ExtResource("5_et004")]
+[node name="RecyclingBin" parent="." node_paths=PackedStringArray("window_manager") instance=ExtResource("5_et004")]
 position = Vector2(10, 15)
+window_manager = NodePath("../Window_Manager")
 
 [node name="DesktopBar" parent="." node_paths=PackedStringArray("window_manager") instance=ExtResource("4_ad3v8")]
 position = Vector2(0, 136)
@@ -68,20 +76,29 @@ texture_hover = ExtResource("8_hwp1v")
 texture_disabled = ExtResource("8_hwp1v")
 texture_focused = ExtResource("8_hwp1v")
 
-[node name="HpBar" type="TextureProgressBar" parent="."]
-offset_left = 50.0
-offset_top = 10.0
-offset_right = 250.0
-offset_bottom = 30.0
-texture_under = ExtResource("10_sx8sy")
-texture_progress = ExtResource("11_6rpak")
-
 [node name="Power" type="Button" parent="."]
 offset_left = 2.0
 offset_top = 136.0
 offset_right = 29.0
 offset_bottom = 154.0
 
+[node name="Timer" type="Timer" parent="."]
+
+[node name="HelpfulArrow1" type="Sprite2D" parent="."]
+position = Vector2(36, 48)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_6b1ty")
+
+[node name="HelpfulArrow2" type="Sprite2D" parent="."]
+position = Vector2(14, 127)
+rotation = -1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_6b1ty")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_5a4h1")
+
 [connection signal="_add_recycle_bin" from="RecyclingBin" to="." method="_on_recycling_bin"]
 [connection signal="pressed" from="NotepadIcon" to="." method="_on_notepad_icon_pressed"]
 [connection signal="pressed" from="Power" to="Window_Manager" method="_on_power_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
